@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\pc\\Desktop\\project\\moonja\\api-server\\logs\\.6618d85d964faa7191deb992abdc8125b970a52b-audit.json",
+    "files": [
+        {
+            "date": 1694501619530,
+            "name": "C:\\Users\\pc\\Desktop\\project\\moonja\\api-server\\logs\\2023-09-12.exception.log",
+            "hash": "1df3c0051379424081f8f6c035485bac116b2a54b71315fa940eacddbba7e0a5"
+        },
+        {
+            "date": 1694591855995,
+            "name": "C:\\Users\\pc\\Desktop\\project\\moonja\\api-server\\logs\\2023-09-13.exception.log",
+            "hash": "4e02f90feebaf3bd02b0234b49d36aa48ecab20934eee7e21ffc391e95ab640d"
+        },
+        {
+            "date": 1694617230891,
+            "name": "C:\\Users\\pc\\Desktop\\project\\moonja\\api-server\\logs\\2023-09-14.exception.log",
+            "hash": "723d91fcc1c55e01b766757687d89aa8032bc1a1a7e29477fe31a85995da2ae6"
+        }
+    ],
+    "hashType": "sha256"
+}

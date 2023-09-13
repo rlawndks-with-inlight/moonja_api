@@ -1,0 +1,81 @@
+'use strict';
+
+import express from "express";
+import cors from "cors";
+import routes from "./routes/index.js";
+import path from "path";
+import 'dotenv/config';
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
+import http from 'http';
+import https from 'https';
+import scheduleIndex from './utils/schedules/index.js'
+import upload from "./config/multerConfig.js";
+import { imageFieldList } from "./utils/util.js";
+import { fileURLToPath } from 'url';
+import fs from 'fs';
+import cluster from "cluster";
+import { cpus } from "os";
+const numCPUs = cpus().length;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended : false}));
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
+app.use(cookieParser());
+
+app.use('/files', express.static(__dirname + '/files'));
+app.use('/api', upload.fields(imageFieldList), routes);
+
+app.get('/', (req, res) => {
+  console.log("back-end initialized")
+  res.send('back-end initialized')
+});
+
+app.use((req, res, next) => {
+  const err = new APIError('API not found', httpStatus.NOT_FOUND);
+  return next(err);
+});
+let server = undefined
+const HTTP_PORT = 8080;
+const HTTPS_PORT = 8443;
+
+if (cluster.isPrimary) {
+  if (cluster.isMaster) {
+    scheduleIndex();
+  }
+  console.log(`Primary ${process.pid} is running`);
+  // Fork workers.
+  for (let i = 0; i < numCPUs - 1; i++) {
+    const worker = cluster.fork();
+    worker.on("message", (message) => {
+      console.log(`process id ${i} said : ${message}`);
+    });
+  }
+  cluster.on('exit', (worker, code, signal) => {
+    console.log('죽은 워커의 아이디 : ' + worker.process.pid);
+    console.log('죽은 워커의 exit code : ' + code);
+    console.log('죽은 워커의 signal : ' + signal);
+  });
+} else {
+  if (process.env.NODE_ENV == 'development') {
+    server = http.createServer(app).listen(HTTP_PORT, function () {
+      console.log(`Server is On ${HTTP_PORT}...!!!`);
+    });
+  } else {
+    const options = { // letsencrypt로 받은 인증서 경로를 입력해 줍니다.
+      ca: fs.readFileSync("/etc/letsencrypt/live/rnjsshgml.cafe24.com/fullchain.pem"),
+      key: fs.readFileSync("/etc/letsencrypt/live/rnjsshgml.cafe24.com/privkey.pem"),
+      cert: fs.readFileSync("/etc/letsencrypt/live/rnjsshgml.cafe24.com/cert.pem")
+    };
+    server = https.createServer(options, app).listen(HTTPS_PORT, function () {
+      console.log(`Server is On ${HTTPS_PORT}...!!!`);
+    });
+  }
+  console.log(`Worker ${process.pid} started`);
+}

@@ -1,0 +1,98 @@
+2023-09-06 15:29:42 [로그] error: {}
+2023-09-06 15:30:08 [로그] error: {}
+2023-09-06 15:30:24 [로그] error: {}
+2023-09-06 15:30:46 [로그] error: {}
+2023-09-06 15:30:48 [로그] error: {}
+2023-09-06 15:35:41 [로그] error: {}
+2023-09-06 15:35:43 [로그] error: {}
+2023-09-06 15:36:13 [로그] error: {}
+2023-09-06 15:36:15 [로그] error: {}
+2023-09-06 15:57:40 [로그] error: {}
+2023-09-06 15:58:26 [로그] error: {}
+2023-09-06 15:58:32 [로그] error: {}
+2023-09-06 15:58:59 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:13:49 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:16:47 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:17:07 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:19:41 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:19:53 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:20:40 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:21:01 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:21:57 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:22:14 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:22:51 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:26 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:27 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:28 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:28 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:31 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:31 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:32 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:33 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:33 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:34 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:35 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:35 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:36 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:23:57 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:24:50 [로그] error: {"code":3002,"description":"invalid signature"}
+2023-09-06 16:25:37 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:25:39 [로그] error: {"code":3004,"description":"not match account"}
+2023-09-06 16:26:25 [로그] error: {"code":9000,"description":"unknown error"}
+2023-09-06 16:26:29 [로그] error: {"code":9000,"description":"unknown error"}
+2023-09-06 16:26:58 [로그] error: {"code":9000,"description":"unknown error"}
+2023-09-06 16:29:21 [로그] error: {}
+2023-09-06 16:29:24 [로그] error: {}
+2023-09-06 16:29:54 [로그] error: {}
+2023-09-06 16:29:55 [로그] error: {}
+2023-09-06 16:29:57 [로그] error: {}
+2023-09-06 16:30:09 [로그] error: {}
+2023-09-06 16:30:43 [로그] error: {"code":2000,"description":"The messagekey field is required"}
+2023-09-06 16:31:11 [로그] error: {"code":9000,"description":"unknown error"}
+2023-09-06 16:31:13 [로그] error: {"code":9000,"description":"unknown error"}
+2023-09-06 16:31:52 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:31:58 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:34:38 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:35:41 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:36:28 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:37:23 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:37:58 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:38:54 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:40:32 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:42:13 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:43:42 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:45:08 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:45:09 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:45:11 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:45:12 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:45:13 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:45:14 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:46:18 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:48:18 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:48:20 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:54:38 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:54:38 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:57:19 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:57:21 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:57:21 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:57:22 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:57:22 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:57:23 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 16:57:24 [로그] error: {"code":3012,"description":"not exist message in bizppurio"}
+2023-09-06 17:06:40 [로그] error: {"code":2000,"description":"The content.at.senderkey field is required when type is at","refkey":"refkey"}
+2023-09-06 17:07:49 [로그] error: {"code":2000,"description":"The content.at.templatecode field is required when type is at","refkey":"refkey"}
+2023-09-06 17:41:58 [로그] error: {"code":2000,"description":"The content.at.templatecode field is required when type is at","refkey":"refkey"}
+2023-09-06 17:41:58 [로그] error: {"code":2000,"description":"The content.at.templatecode field is required when type is at","refkey":"refkey"}
+2023-09-06 18:01:48 [로그] error: {}
+2023-09-06 18:02:29 [로그] error: {}
+2023-09-06 18:02:31 [로그] error: {}
+2023-09-06 18:02:51 [로그] error: {}
+2023-09-06 18:21:09 [로그] error: {"code":2000,"description":"The to may not be greater than 16 characters","refkey":"refkey"}
+2023-09-06 18:22:13 [로그] error: {"code":2000,"description":"The to may not be greater than 16 characters","refkey":"refkey"}
+2023-09-06 18:22:15 [로그] error: {"code":2000,"description":"The to may not be greater than 16 characters","refkey":"refkey"}
+2023-09-06 18:22:53 [로그] error: {"code":2000,"description":"The to may not be greater than 16 characters","refkey":"refkey"}
+2023-09-06 18:22:59 [로그] error: {"code":2000,"description":"The to may not be greater than 16 characters","refkey":"refkey"}
+2023-09-06 18:23:11 [로그] error: {"code":2000,"description":"The to may not be greater than 16 characters","refkey":"refkey"}
+2023-09-06 18:23:30 [로그] error: {"code":2000,"description":"The to may not be greater than 16 characters","refkey":"refkey"}
+2023-09-06 18:24:52 [로그] error: {"code":2000,"description":"The to may not be greater than 16 characters","refkey":"refkey"}
+2023-09-06 21:09:02 [로그] error: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>MulterError: File too large<br> &nbsp; &nbsp;at abortWithCode (/home/service/bizapi/bizapi-file-transfer/app/node_modules/multer/lib/make-middleware.js:79:22)<br> &nbsp; &nbsp;at FileStream.&lt;anonymous&gt; (/home/service/bizapi/bizapi-file-transfer/app/node_modules/multer/lib/make-middleware.js:141:11)<br> &nbsp; &nbsp;at FileStream.emit (node:events:513:28)<br> &nbsp; &nbsp;at PartStream.onData (/home/service/bizapi/bizapi-file-transfer/app/node_modules/busboy/lib/types/multipart.js:220:18)<br> &nbsp; &nbsp;at PartStream.emit (node:events:513:28)<br> &nbsp; &nbsp;at addChunk (node:internal/streams/readable:324:12)<br> &nbsp; &nbsp;at readableAddChunk (node:internal/streams/readable:297:9)<br> &nbsp; &nbsp;at Readable.push (node:internal/streams/readable:234:10)<br> &nbsp; &nbsp;at Dicer._oninfo (/home/service/bizapi/bizapi-file-transfer/app/node_modules/dicer/lib/Dicer.js:191:36)<br> &nbsp; &nbsp;at SBMH.&lt;anonymous&gt; (/home/service/bizapi/bizapi-file-transfer/app/node_modules/dicer/lib/Dicer.js:127:10)</pre>\n</body>\n</html>\n"

@@ -1,0 +1,20 @@
+2023-09-05 15:07:29 [Winston 연습 어플리케이션] error: {"code":3005,"description":"invalid bearer"}
+2023-09-05 15:08:18 [로그] error: {"code":3005,"description":"invalid bearer"}
+2023-09-05 15:09:03 [로그] error: {"code":3005,"description":"invalid bearer"}
+2023-09-05 15:30:16 [로그] error: {"code":2000,"description":"The content.mms.file field is required when type is mms","refkey":"test123"}
+2023-09-05 15:31:39 [로그] error: {"code":2000,"description":"The content.mms.file field is required when type is mms","refkey":"test123"}
+2023-09-05 15:52:59 [로그] error: {"code":4007,"description":"file Invalid Time error"}
+2023-09-05 15:53:00 [로그] error: {"code":4007,"description":"file Invalid Time error"}
+2023-09-05 15:53:38 [로그] error: {"code":4007,"description":"file Invalid Time error"}
+2023-09-05 15:53:54 [로그] error: {"code":4007,"description":"file Invalid Time error"}
+2023-09-05 15:53:56 [로그] error: {"code":4007,"description":"file Invalid Time error"}
+2023-09-05 15:54:44 [로그] error: {"code":4007,"description":"file Invalid Time error"}
+2023-09-05 16:01:31 [로그] error: {"code":2000,"description":"The content.mms.file field is required when type is mms","refkey":"test123"}
+2023-09-05 16:04:20 [로그] error: {"code":2000,"description":"The content.mms.file field is required when type is mms","refkey":"test123"}
+2023-09-05 17:08:53 [로그] error: {"code":3005,"description":"invalid bearer"}
+2023-09-05 17:19:32 [로그] error: {"code":3005,"description":"invalid bearer"}
+2023-09-05 17:21:19 [로그] error: {"code":3005,"description":"invalid bearer"}
+2023-09-05 17:23:21 [로그] error: {"code":3005,"description":"invalid bearer"}
+2023-09-05 17:24:04 [로그] error: {"code":3005,"description":"invalid bearer"}
+2023-09-05 17:48:50 [로그] error: {"code":3005,"description":"invalid bearer"}
+2023-09-05 17:57:12 [로그] error: {"code":2000,"description":"The content.at.senderkey field is required when type is at","refkey":"refkey"}

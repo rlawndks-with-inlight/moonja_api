@@ -1,0 +1,4 @@
+2023-09-13 23:46:43 [로그] error: {"code":2000,"description":"The from field is required","refkey":"refkey"}
+2023-09-13 23:47:08 [로그] error: {"code":2000,"description":"The from field is required","refkey":"refkey"}
+2023-09-13 23:49:26 [로그] error: {"code":2000,"description":"The content.sms.message field is required when type is sms","refkey":"refkey"}
+2023-09-13 23:49:57 [로그] error: {"code":-200}

@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\pc\\Desktop\\project\\moonja\\back\\logs\\moonja_error\\.7bef8c1adfa7c1b30420d519f8962249e669e3ae-audit.json",
+    "files": [
+        {
+            "date": 1694074308258,
+            "name": "C:\\Users\\pc\\Desktop\\project\\moonja\\back\\logs\\moonja_error\\2023-09-07.moonja_error.log",
+            "hash": "61160da63d052011e50052ee3556c6613c01ea1f5d6745a39c5631d670090c61"
+        }
+    ],
+    "hashType": "sha256"
+}

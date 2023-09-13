@@ -1,0 +1,13 @@
+2023-09-07 01:11:35 [로그] error: uncaughtException: returnResponse is not defined
+ReferenceError: returnResponse is not defined
+    at token (file:///C:/Users/pc/Desktop/project/moonja/back/controllers/alimtalk.controller.js:61:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2023-09-07 01:11:49 [로그] error: uncaughtException: returnResponse is not defined
+ReferenceError: returnResponse is not defined
+    at token (file:///C:/Users/pc/Desktop/project/moonja/back/controllers/alimtalk.controller.js:61:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2023-09-07 01:12:43 [로그] error: uncaughtException: response is not defined
+ReferenceError: response is not defined
+    at returnResponse (file:///C:/Users/pc/Desktop/project/moonja/back/utils/send/response-format.js:77:5)
+    at token (file:///C:/Users/pc/Desktop/project/moonja/back/controllers/alimtalk.controller.js:62:20)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
