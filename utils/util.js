@@ -203,6 +203,8 @@ export const dateAdd = (s_d_, second, type) => {
         plus_second = plus_second * 60 * 60 * 24 * 30;
     } else if (type == 'y') {
         plus_second = plus_second * 60 * 60 * 24 * 365;
+    } else {
+        return false;
     }
     let result = s_d + plus_second;
     return returnMoment(result);
@@ -223,6 +225,8 @@ export const subtractMinus = (s_d_, second, type) => {
         minus_second = minus_second * 60 * 60 * 24 * 30;
     } else if (type == 'y') {
         minus_second = minus_second * 60 * 60 * 24 * 365;
+    } else {
+        return false;
     }
     let result = s_d - minus_second;
 

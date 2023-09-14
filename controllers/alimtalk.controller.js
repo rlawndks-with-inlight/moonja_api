@@ -47,9 +47,12 @@ const alimtalkCtrl = {
                 salt,
             } = token_data;
             let expired_date = dateAdd(returnMoment(), parseInt(num), num_unit);
+            if(!expired_date){
+                return returnResponse(req, res, -997)
+            }
             let expired = new Date(expired_date).getTime();
             let result = await pool.query(`UPDATE users SET kakao_token=?, kakao_token_expired=?`, [
-                hashedPassword,
+                hashedPassword.substring(0, 30),
                 expired
             ])
 
