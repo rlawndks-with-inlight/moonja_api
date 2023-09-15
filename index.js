@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 });
 let server = undefined
 const HTTP_PORT = 8080;
-const HTTPS_PORT = 8443;
+const HTTPS_PORT = 443;
 
 if (cluster.isPrimary) {
   if (cluster.isMaster) {
@@ -69,9 +69,9 @@ if (cluster.isPrimary) {
     });
   } else {
     const options = { // letsencrypt로 받은 인증서 경로를 입력해 줍니다.
-      ca: fs.readFileSync("/etc/letsencrypt/live/rnjsshgml.cafe24.com/fullchain.pem"),
-      key: fs.readFileSync("/etc/letsencrypt/live/rnjsshgml.cafe24.com/privkey.pem"),
-      cert: fs.readFileSync("/etc/letsencrypt/live/rnjsshgml.cafe24.com/cert.pem")
+      ca: fs.readFileSync("/etc/letsencrypt/live/purplevery26.cafe24.com/fullchain.pem"),
+      key: fs.readFileSync("/etc/letsencrypt/live/purplevery26.cafe24.com/privkey.pem"),
+      cert: fs.readFileSync("/etc/letsencrypt/live/purplevery26.cafe24.com/cert.pem")
     };
     server = https.createServer(options, app).listen(HTTPS_PORT, function () {
       console.log(`Server is On ${HTTPS_PORT}...!!!`);
