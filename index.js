@@ -14,7 +14,6 @@ import upload from "./config/multerConfig.js";
 import { imageFieldList } from "./utils/util.js";
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import cluster from "cluster";
 import { cpus } from "os";
 const numCPUs = cpus().length;
 
@@ -43,13 +42,11 @@ app.use((req, res, next) => {
 });
 let server = undefined
 const HTTP_PORT = 8080;
-const HTTPS_PORT = 443;
+const HTTPS_PORT = 8443;
+
 if (process.env.NODE_ENV == 'development') {
   server = http.createServer(app).listen(HTTP_PORT, function () {
-    console.log("**-------------------------------------**");
-    console.log(`====      Server is On ${HTTP_PORT}...!!!    ====`);
-    console.log("**-------------------------------------**");
-    scheduleIndex();
+    console.log(`Server is On ${HTTP_PORT}...!!!`);
   });
 } else {
   const options = { // letsencrypt로 받은 인증서 경로를 입력해 줍니다.
@@ -58,10 +55,6 @@ if (process.env.NODE_ENV == 'development') {
     cert: fs.readFileSync("/etc/letsencrypt/live/purplevery26.cafe24.com/cert.pem")
   };
   server = https.createServer(options, app).listen(HTTPS_PORT, function () {
-    console.log("**-------------------------------------**");
-    console.log(`====      Server is On ${HTTPS_PORT}...!!!    ====`);
-    console.log("**-------------------------------------**");
-    scheduleIndex();
+    console.log(`Server is On ${HTTPS_PORT}...!!!`);
   });
-
 }
