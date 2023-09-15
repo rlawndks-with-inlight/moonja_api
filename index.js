@@ -42,40 +42,26 @@ app.use((req, res, next) => {
   return next(err);
 });
 let server = undefined
-const HTTP_PORT = 8080;
+const HTTP_PORT = 8001;
 const HTTPS_PORT = 443;
-
-if (cluster.isPrimary) {
-  if (cluster.isMaster) {
+if (process.env.NODE_ENV == 'development') {
+  server = http.createServer(app).listen(HTTP_PORT, function () {
+    console.log("**-------------------------------------**");
+    console.log(`====      Server is On ${HTTP_PORT}...!!!    ====`);
+    console.log("**-------------------------------------**");
     scheduleIndex();
-  }
-  console.log(`Primary ${process.pid} is running`);
-  // Fork workers.
-  for (let i = 0; i < numCPUs - 1; i++) {
-    const worker = cluster.fork();
-    worker.on("message", (message) => {
-      console.log(`process id ${i} said : ${message}`);
-    });
-  }
-  cluster.on('exit', (worker, code, signal) => {
-    console.log('죽은 워커의 아이디 : ' + worker.process.pid);
-    console.log('죽은 워커의 exit code : ' + code);
-    console.log('죽은 워커의 signal : ' + signal);
   });
 } else {
-  if (process.env.NODE_ENV == 'development') {
-    server = http.createServer(app).listen(HTTP_PORT, function () {
-      console.log(`Server is On ${HTTP_PORT}...!!!`);
-    });
-  } else {
-    const options = { // letsencrypt로 받은 인증서 경로를 입력해 줍니다.
-      ca: fs.readFileSync("/etc/letsencrypt/live/purplevery26.cafe24.com/fullchain.pem"),
-      key: fs.readFileSync("/etc/letsencrypt/live/purplevery26.cafe24.com/privkey.pem"),
-      cert: fs.readFileSync("/etc/letsencrypt/live/purplevery26.cafe24.com/cert.pem")
-    };
-    server = https.createServer(options, app).listen(HTTPS_PORT, function () {
-      console.log(`Server is On ${HTTPS_PORT}...!!!`);
-    });
-  }
-  console.log(`Worker ${process.pid} started`);
+  const options = { // letsencrypt로 받은 인증서 경로를 입력해 줍니다.
+    ca: fs.readFileSync("/etc/letsencrypt/live/purplevery26.cafe24.com/fullchain.pem"),
+    key: fs.readFileSync("/etc/letsencrypt/live/purplevery26.cafe24.com/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/purplevery26.cafe24.com/cert.pem")
+  };
+  server = https.createServer(options, app).listen(HTTPS_PORT, function () {
+    console.log("**-------------------------------------**");
+    console.log(`====      Server is On ${HTTPS_PORT}...!!!    ====`);
+    console.log("**-------------------------------------**");
+    scheduleIndex();
+  });
+
 }
