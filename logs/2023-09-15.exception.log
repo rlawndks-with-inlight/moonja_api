@@ -5,3 +5,10 @@ Error: listen EADDRINUSE: address already in use :::8001
     at Server.listen (node:net:1876:7)
     at file:///C:/Users/pc/Desktop/project/moonja/api-server/index.js:48:35
     at ModuleJob.run (node:internal/modules/esm/module_job:194:25)
+2023-09-15 17:25:00 [로그] error: uncaughtException: listen EADDRINUSE: address already in use :::8001
+Error: listen EADDRINUSE: address already in use :::8001
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at file:///C:/Users/pc/Desktop/project/moonja/api-server/index.js:48:35
+    at ModuleJob.run (node:internal/modules/esm/module_job:194:25)
