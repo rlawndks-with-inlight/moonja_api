@@ -24,7 +24,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended : false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 app.use(cookieParser());
@@ -33,8 +33,12 @@ app.use('/files', express.static(__dirname + '/files'));
 app.use('/api', upload.fields(imageFieldList), routes);
 
 app.get('/', (req, res) => {
+  let total = 0;
+  for (var i = 0; i < 50000000; i++) {
+    total++;
+  }
   console.log("back-end initialized")
-  res.send('back-end initialized')
+  res.send(`worker ${total}`)
 });
 
 app.use((req, res, next) => {
