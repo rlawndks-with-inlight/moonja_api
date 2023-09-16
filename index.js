@@ -33,12 +33,8 @@ app.use('/files', express.static(__dirname + '/files'));
 app.use('/api', upload.fields(imageFieldList), routes);
 
 app.get('/', (req, res) => {
-  let total = 0;
-  for (var i = 0; i < 50000000; i++) {
-    total++;
-  }
   console.log("back-end initialized")
-  res.send(`worker ${total}`)
+  res.send(``)
 });
 
 app.use((req, res, next) => {
