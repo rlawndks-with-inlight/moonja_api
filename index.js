@@ -14,6 +14,7 @@ import upload from "./config/multerConfig.js";
 import { imageFieldList } from "./utils/util.js";
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import cluster from "cluster";
 import { cpus } from "os";
 const numCPUs = cpus().length;
 
@@ -23,7 +24,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended : false}));
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 app.use(cookieParser());
@@ -43,7 +44,25 @@ app.use((req, res, next) => {
 let server = undefined
 const HTTP_PORT = 8080;
 const HTTPS_PORT = 443;
-try {
+
+if (cluster.isPrimary) {
+  if (cluster.isMaster) {
+    scheduleIndex();
+  }
+  console.log(`Primary ${process.pid} is running`);
+  // Fork workers.
+  for (let i = 0; i < numCPUs - 1; i++) {
+    const worker = cluster.fork();
+    worker.on("message", (message) => {
+      console.log(`process id ${i} said : ${message}`);
+    });
+  }
+  cluster.on('exit', (worker, code, signal) => {
+    console.log('죽은 워커의 아이디 : ' + worker.process.pid);
+    console.log('죽은 워커의 exit code : ' + code);
+    console.log('죽은 워커의 signal : ' + signal);
+  });
+} else {
   if (process.env.NODE_ENV == 'development') {
     server = http.createServer(app).listen(HTTP_PORT, function () {
       console.log(`Server is On ${HTTP_PORT}...!!!`);
@@ -58,7 +77,5 @@ try {
       console.log(`Server is On ${HTTPS_PORT}...!!!`);
     });
   }
-
-} catch (err) {
-  console.log(err)
+  console.log(`Worker ${process.pid} started`);
 }
