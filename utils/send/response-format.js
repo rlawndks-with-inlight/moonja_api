@@ -34,6 +34,9 @@ const returnResponse = (req, res, num, data = {}) => {
         case -150:
             return_obj = returnFormat(num, '권한이 없습니다.');
             break;
+        case -996:
+            return_obj = returnFormat(num, '허용된 ip가 아닙니다.');
+            break;
         case -997:
             return_obj = returnFormat(num, '파라미터가 잘못되었습니다.');
             break;

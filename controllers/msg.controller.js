@@ -133,6 +133,9 @@ const msgCtrl = {
             user_ips = user_ips?.result;
             user_ips = user_ips.map(ip => { return ip?.ip });
             let requestIp = getReqIp(req);
+            if(!user_ips.includes(requestIp)){
+                return returnResponse(req, res, -996)
+            }
             let token_data = await pool.query(`SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`);
             token_data = token_data?.result[0];
             let obj = {
