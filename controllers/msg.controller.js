@@ -129,6 +129,19 @@ const msgCtrl = {
                 return returnResponse(req, res, -1000)
             }
             let user = is_exist_user_key?.result[0];
+            let user_ips = await pool.query(`SELECT * FROM permit_ips WHERE user_id=?`, [user?.id]);
+            user_ips = user_ips?.result;
+            user_ips = user_ips.map(ip => { return ip?.ip });
+            let requestIp;
+            try {
+                requestIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.ip || '0.0.0.0'
+            } catch (err) {
+                requestIp = '0.0.0.0'
+            }
+            console.log(requestIp)
+            if (user_ips.includes(requestIp)) {
+
+            }
             let token_data = await pool.query(`SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`);
             token_data = token_data?.result[0];
             let obj = {
