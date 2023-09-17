@@ -6,7 +6,7 @@ import { checkIsManagerUrl, returnMomentOnlyNumber } from "../utils/function.js"
 import { deleteQuery, getSelectQuery, insertQuery, selectQuerySimple, updateQuery } from "../utils/query-util.js";
 import send_func_obj from "../utils/send/index.js";
 import returnResponse from "../utils/send/response-format.js";
-import { checkLevel, getByteB, response } from "../utils/util.js";
+import { checkLevel, getByteB, getReqIp, response } from "../utils/util.js";
 import 'dotenv/config';
 
 const table_name = 'msg_logs';
@@ -132,16 +132,7 @@ const msgCtrl = {
             let user_ips = await pool.query(`SELECT * FROM permit_ips WHERE user_id=?`, [user?.id]);
             user_ips = user_ips?.result;
             user_ips = user_ips.map(ip => { return ip?.ip });
-            let requestIp;
-            try {
-                requestIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.ip || '0.0.0.0'
-            } catch (err) {
-                requestIp = '0.0.0.0'
-            }
-            console.log(requestIp)
-            if (user_ips.includes(requestIp)) {
-
-            }
+            let requestIp = getReqIp(req);
             let token_data = await pool.query(`SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`);
             token_data = token_data?.result[0];
             let obj = {

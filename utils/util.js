@@ -238,3 +238,12 @@ export const differenceTwoDate = (s_d_, e_d_) => {// 'yyyy-mm-dd hh:mm:ss' ë¡œ ë
     let second = (s_d - e_d) / (1000);
     return second;
 }
+export const getReqIp = (req) => {
+    let requestIp;
+    try {
+        requestIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.ip || '0.0.0.0'
+    } catch (err) {
+        requestIp = '0.0.0.0'
+    }
+    return requestIp;
+}
