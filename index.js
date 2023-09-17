@@ -24,7 +24,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended : false}));
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 app.use(cookieParser());
@@ -34,7 +34,7 @@ app.use('/api', upload.fields(imageFieldList), routes);
 
 app.get('/', (req, res) => {
   console.log("back-end initialized")
-  res.send(``)
+  res.send('back-end initialized')
 });
 
 app.use((req, res, next) => {
