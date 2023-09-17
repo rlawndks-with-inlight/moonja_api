@@ -6,7 +6,7 @@ import { bizppurioApi } from "../utils/bizppurio-util.js";
 import { checkIsManagerUrl, returnMoment, returnMomentOnlyNumber } from "../utils/function.js";
 import { deleteQuery, getSelectQuery, insertQuery, selectQuerySimple, updateQuery } from "../utils/query-util.js";
 import send_func_obj from "../utils/send/index.js";
-import { checkLevel, createHashedPassword, dateAdd, response, } from "../utils/util.js";
+import { checkLevel, createHashedPassword, dateAdd, getReqIp, response, } from "../utils/util.js";
 import 'dotenv/config';
 import returnResponse from "../utils/send/response-format.js";
 
@@ -35,8 +35,8 @@ const alimtalkCtrl = {
             let { baseUrl } = req;
             const { num, num_unit } = req.params;
             const { api_key, user_id } = req.body;
-            console.log(num);
-            console.log(num_unit);
+            let requestIp = getReqIp(req);
+            console.log(requestIp)
             let is_exist_user_key = await pool.query(`SELECT * FROM users WHERE user_name=? AND api_key=? `, [user_id, api_key]);
             if (!(is_exist_user_key?.result.length > 0)) {
                 return returnResponse(req, res, -1000)
