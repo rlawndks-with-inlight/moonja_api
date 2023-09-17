@@ -245,5 +245,6 @@ export const getReqIp = (req) => {
     } catch (err) {
         requestIp = '0.0.0.0'
     }
+    requestIp = requestIp.replaceAll('::ffff:','');
     return requestIp;
 }
