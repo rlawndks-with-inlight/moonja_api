@@ -197,9 +197,9 @@ const msgCtrl = {
                     obj['type'] = 'sms';//
                     console.log(getByteB(msg))
                     console.log(req.body)
-                    // if (title) {
-                    //     return returnResponse(req, res, -998)
-                    // }
+                    if (title) {
+                        return returnResponse(req, res, -998)
+                    }
                 } else {
                     obj['type'] = 'lms';//
 
