@@ -84,10 +84,10 @@ export const bizppurioApi = {
             console.log(response?.data)
 
             let { code, messagekey, description } = response.data;
-            // let report_result = await bizppurioApi.report({
-            //      token_data,
-            //      messagekey,
-            // })
+             let report_result = await bizppurioApi.report({
+                  token_data,
+                  messagekey,
+            })
 
             let save_msg_log = await pool.query('INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
                 code,
@@ -177,7 +177,7 @@ export const bizppurioApi = {
             }
             let obj = {
                 account: BIZPPURIO_INFO.ID,
-                messagekey,
+                messagekey:'230919012006045sms035776purpI2je',
             }
             console.log(obj)
             let response = await axios.post(`${BIZPPURIO_INFO.API_URL}${BIZPPURIO_INFO.API_URI.REPORT}`, obj, config);
