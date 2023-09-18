@@ -88,11 +88,47 @@ const msgCtrl = {
     },
     remain: async (req, res, next) => {//발송가능건수
         try {
-
             const decode_user = checkLevel(req.cookies.token, 0);
+            const {
+                api_key,
+                user_id,
+            } = req.body;
+            let user_columns = [
+                'users.*',
+                `(SELECT SUM(deposit) FROM deposits WHERE user_id=users.id) AS total_deposit`,
+            ]
+            let is_exist_user_key = await pool.query(`SELECT ${user_columns.join()} FROM users WHERE user_name=? AND api_key=? `, [user_id, api_key]);
+            if (!(is_exist_user_key?.result.length > 0)) {
+                return returnResponse(req, res, -1000)
+            }
+            let user = is_exist_user_key?.result[0];
+            let user_ips = await pool.query(`SELECT * FROM permit_ips WHERE user_id=?`, [user?.id]);
+            user_ips = user_ips?.result;
+            user_ips = user_ips.map(ip => { return ip?.ip });
+            let requestIp = getReqIp(req);
+            if (!user_ips.includes(requestIp) && requestIp != '::1') {
+                return returnResponse(req, res, -996)
+            }
+            let SMS_CNT = 0;
+            let LMS_CNT = 0;
+            let MMS_CNT = 0;
+            let dns_data = await pool.query(`SELECT setting_obj FROM brands WHERE id=${user?.brand_id} `);
+            dns_data = dns_data?.result[0];
 
-
-            return returnResponse(req, res, 100);
+            dns_data['setting_obj'] = JSON.parse(dns_data?.setting_obj ?? '{}');
+            let sms_price = dns_data?.setting_obj?.sms ?? 1;
+            let lms_price = dns_data?.setting_obj?.lms ?? 1;
+            let mms_price = dns_data?.setting_obj?.mms ?? 1;
+            SMS_CNT = parseInt(user?.total_deposit / sms_price);
+            LMS_CNT = parseInt(user?.total_deposit / lms_price);
+            MMS_CNT = parseInt(user?.total_deposit / mms_price);
+            let data = {
+                SMS_CNT,
+                LMS_CNT,
+                MMS_CNT,
+                TOTAL_DEPOSIT: user?.total_deposit
+            }
+            return returnResponse(req, res, 100, data);
         } catch (err) {
             console.log(err)
             return returnResponse(req, res, -5000)
