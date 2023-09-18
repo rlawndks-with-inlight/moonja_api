@@ -74,12 +74,9 @@ const msgCtrl = {
 
         }
     },
-    token: async (req, res, next) => {//token 발급
+    get: async (req, res, next) => {//발송가능건수
         try {
-
             const decode_user = checkLevel(req.cookies.token, 0);
-
-            const { } = req.query;
 
             return returnResponse(req, res, 100);
         } catch (err) {
@@ -133,11 +130,11 @@ const msgCtrl = {
                 return returnResponse(req, res, -1000)
             }
             let user = is_exist_user_key?.result[0];
-            console.log(user)
             let user_ips = await pool.query(`SELECT * FROM permit_ips WHERE user_id=?`, [user?.id]);
             user_ips = user_ips?.result;
             user_ips = user_ips.map(ip => { return ip?.ip });
             let requestIp = getReqIp(req);
+            console.log(requestIp)
             if (!user_ips.includes(requestIp) && requestIp != '::1') {
                 return returnResponse(req, res, -996)
             }
@@ -195,8 +192,6 @@ const msgCtrl = {
                 }
                 if (getByteB(msg) <= 90) {
                     obj['type'] = 'sms';//
-                    console.log(getByteB(msg))
-                    console.log(req.body)
                     if (title) {
                         return returnResponse(req, res, -998)
                     }

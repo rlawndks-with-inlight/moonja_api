@@ -34,6 +34,11 @@
             "date": 1694879040767,
             "name": "C:\\Users\\pc\\Desktop\\project\\moonja\\api-server\\logs\\error\\2023-09-17.error.log",
             "hash": "753d4202f86b4df1054f7074fd2189fbdfa7e8a3d746bf00070ceb82ce1d993f"
+        },
+        {
+            "date": 1695051029760,
+            "name": "C:\\Users\\pc\\Desktop\\project\\moonja\\api-server\\logs\\error\\2023-09-19.error.log",
+            "hash": "c7316295d8b64dfe54e3bd91a139107445b444d066f7b4da23bda19b0556c39e"
         }
     ],
     "hashType": "sha256"
