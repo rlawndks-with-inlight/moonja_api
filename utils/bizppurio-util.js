@@ -19,7 +19,7 @@ export const BIZPPURIO_INFO = {
             CONFIRM: '/v1/result/confirm'
         }
     },
-    ID: 'purplevery222',
+    ID: 'purplevery2',
     PW: 'qjfwk100djr!',
 }
 export const MSG_TYPE_LIST = [
