@@ -84,7 +84,7 @@ export const bizppurioApi = {
             console.log(response?.data)
 
             let { code, messagekey, description } = response.data;
-            let report_result = await bizppurioApi.result.request({
+            let report_result = await bizppurioApi.report({
                  token_data,
                  messagekey,
             })
