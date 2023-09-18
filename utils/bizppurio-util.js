@@ -84,10 +84,10 @@ export const bizppurioApi = {
             console.log(response?.data)
 
             let { code, messagekey, description } = response.data;
-            let report_result = await bizppurioApi.report({
-                 token_data,
-                 messagekey,
-            })
+            // let report_result = await bizppurioApi.report({
+            //      token_data,
+            //      messagekey,
+            // })
 
             let save_msg_log = await pool.query('INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
                 code,
