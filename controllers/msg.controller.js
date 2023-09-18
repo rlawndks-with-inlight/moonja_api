@@ -195,6 +195,7 @@ const msgCtrl = {
                 }
                 if (getByteB(msg) <= 90) {
                     obj['type'] = 'sms';//
+                    console.log(req.body)
                     if (title) {
                         return returnResponse(req, res, -998)
                     }
