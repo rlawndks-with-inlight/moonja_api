@@ -258,9 +258,55 @@ const msgCtrl = {
     },
     send_mass: async (req, res, next) => {//각기다른 내용으로 대량
         try {
-
-            const decode_user = checkLevel(req.cookies.token, 0);
-            let { baseUrl } = req;
+            let {
+                api_key,
+                user_id,
+                sender, //보내는사람
+                rec_1, // 받는사람
+                msg_1, // 메세지
+                title, // 제목
+            } = req.body;
+            if (
+                !api_key ||
+                !user_id ||
+                !sender ||
+                !rec_1
+            ) {
+                return returnResponse(req, res, -999)
+            }
+            let user_columns = [
+                'users.*',
+                `(SELECT SUM(deposit) FROM deposits WHERE user_id=users.id) AS total_deposit`,
+            ]
+            let is_exist_user_key = await pool.query(`SELECT ${user_columns.join()} FROM users WHERE user_name=? AND api_key=? `, [user_id, api_key]);
+            if (!(is_exist_user_key?.result.length > 0)) {
+                return returnResponse(req, res, -1000)
+            }
+            let user = is_exist_user_key?.result[0];
+            let user_ips = await pool.query(`SELECT * FROM permit_ips WHERE user_id=?`, [user?.id]);
+            user_ips = user_ips?.result;
+            user_ips = user_ips.map(ip => { return ip?.ip });
+            let requestIp = getReqIp(req);
+            console.log(requestIp)
+            if (!user_ips.includes(requestIp) && requestIp != '::1') {
+                return returnResponse(req, res, -996)
+            }
+            let user_senders = await pool.query(`SELECT * FROM senders WHERE user_id=? AND status=0 `, [user?.id]);
+            user_senders = user_senders?.result;
+            if (!user_senders.map(sender => { return sender.sender }).includes(sender)) {
+                return returnResponse(req, res, -995)
+            }
+            let token_data = await pool.query(`SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`);
+            token_data = token_data?.result[0];
+            let obj = {
+                ...req.body,
+                sender,
+                receiver,
+                msg,
+                title,
+                token_data,
+                user_id: user?.id,
+            }
         } catch (err) {
             console.log(err)
             return returnResponse(req, res, -5000)
