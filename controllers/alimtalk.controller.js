@@ -112,6 +112,7 @@ const alimtalkCtrl = {
                 return returnResponse(req, res, -1000)
             }
             let user = is_exist_user_key?.result[0];
+            user['setting_obj'] = JSON.parse(user?.setting_obj ?? '{}');
             if(token != user?.kakao_token){
                 return returnResponse(req, res, -1001)
             }

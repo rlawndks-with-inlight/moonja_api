@@ -101,7 +101,7 @@ export const bizppurioApi = {
                 console.log(save_msg_log)
                 let subtract_deposit = await pool.query(`INSERT INTO deposits (msg_log_id, deposit, user_id, type, method_type) VALUES (?, ?, ?, ?, ?)`, [
                     save_msg_log?.result?.insertId,
-                    (-1) * dns_data?.setting_obj[`${type}`] ?? 0,
+                    (-1) * user?.setting_obj[`${type}`] ?? 0,
                     user?.id,
                     1,
                     2,

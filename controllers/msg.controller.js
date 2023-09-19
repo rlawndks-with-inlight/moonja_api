@@ -166,6 +166,7 @@ const msgCtrl = {
                 return returnResponse(req, res, -1000)
             }
             let user = is_exist_user_key?.result[0];
+            user['setting_obj'] = JSON.parse(user?.setting_obj ?? '{}');
             let user_ips = await pool.query(`SELECT * FROM permit_ips WHERE user_id=?`, [user?.id]);
             user_ips = user_ips?.result;
             user_ips = user_ips.map(ip => { return ip?.ip });
