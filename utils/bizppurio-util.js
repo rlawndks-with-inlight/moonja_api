@@ -84,19 +84,15 @@ export const bizppurioApi = {
             console.log(response?.data)
 
             let { code, messagekey, description } = response.data;
-             let report_result = await bizppurioApi.report({
-                  token_data,
-                  messagekey,
-            })
-
+           
             let save_msg_log = await pool.query('INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
-                code,
+                500,
                 MSG_TYPE_LIST.indexOf(type),
                 `${JSON.stringify(content)}`,
                 from,
                 to,
                 messagekey,
-                description,
+                '전송중',
                 user_id
             ])
             return response?.data;
@@ -108,15 +104,16 @@ export const bizppurioApi = {
                     code,
                     description
                 } = err?.response?.data
-                let save_msg_log = await pool.query('INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
+                let save_msg_log = await pool.query('INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                     code,
                     MSG_TYPE_LIST.indexOf(type),
                     `${JSON.stringify(content)}`,
                     from,
                     to,
-                    '',
+                    '전송실패',
                     description,
-                    user_id
+                    user_id,
+                    2
                 ])
             }
             return err?.response?.data;
@@ -177,11 +174,13 @@ export const bizppurioApi = {
             }
             let obj = {
                 account: BIZPPURIO_INFO.ID,
-                messagekey:'230919012006045sms035776purpI2je',
+                messagekey,
             }
-            console.log(obj)
             let response = await axios.post(`${BIZPPURIO_INFO.API_URL}${BIZPPURIO_INFO.API_URI.REPORT}`, obj, config);
-            console.log(response?.data)
+            return {
+                ...response.data,
+                code: 1000
+            };
         } catch (err) {
             console.log(err?.response?.data)
 
