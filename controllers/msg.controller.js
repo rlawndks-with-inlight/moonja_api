@@ -170,7 +170,6 @@ const msgCtrl = {
             user_ips = user_ips?.result;
             user_ips = user_ips.map(ip => { return ip?.ip });
             let requestIp = getReqIp(req);
-            console.log(requestIp)
             if (!user_ips.includes(requestIp) && requestIp != '::1') {
                 return returnResponse(req, res, -996)
             }
@@ -248,6 +247,9 @@ const msgCtrl = {
             if (receiver_list.length > 1) {
                 obj['receiver'] = receiver_list;
                 is_multiple = true;
+            }
+            if(user?.total_deposit < dns_data?.setting_obj[`${obj.type}`] * receiver_list.length){
+                return returnResponse(req, res, -200)
             }
             let result = await send_func_obj['msg'][`${is_multiple ? 'multiple' : 'single'}`](obj);
             if (result) {

@@ -25,7 +25,7 @@ const returnFormat = (number, message) => {
 -2800 카카오 친구톡일시
 -5000 알 수 없는 에러
 */
-const returnResponse = (req, res, num, data = {}) => {
+const returnResponse = (req, res, num, data = {}, msg) => {
     let return_obj = returnFormat(-5000, '');
     switch (num) {
         case 100:
@@ -33,6 +33,9 @@ const returnResponse = (req, res, num, data = {}) => {
             break;
         case -150:
             return_obj = returnFormat(num, '권한이 없습니다.');
+            break;
+        case -200:
+            return_obj = returnFormat(num, '예치금이 부족합니다.');
             break;
         case -995:
             return_obj = returnFormat(num, '발신번호 에러.');
@@ -136,7 +139,7 @@ const returnResponse = (req, res, num, data = {}) => {
             return_obj = returnFormat(num, 'server error');
             break;
     }
-    return response(req, res, num, return_obj.message, data)
+    return response(req, res, num, msg || return_obj.message, data)
 }
 
 export default returnResponse;
