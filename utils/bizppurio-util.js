@@ -1,7 +1,7 @@
 'use strict';
 import 'dotenv/config';
 import axios from 'axios';
-import { pool } from '../config/db.js';
+import db, { pool } from '../config/db.js';
 import { returnMomentOnlyNumber } from './function.js';
 import logger from './winston/index.js';
 import fs from 'fs';
@@ -75,8 +75,6 @@ export const bizppurioApi = {
             to,
             content,
         }
-        console.log(dns_data)
-        console.log(obj)
         try {
             const config = {
                 headers: {
@@ -88,23 +86,30 @@ export const bizppurioApi = {
             console.log(response?.data)
 
             let { code, messagekey, description } = response.data;
-           
-            let save_msg_log = await pool.query('INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
-                500,
-                MSG_TYPE_LIST.indexOf(type),
-                `${JSON.stringify(content)}`,
-                from,
-                to,
-                messagekey,
-                '전송중',
-                user_id
-            ])
-            let subtract_deposit = await pool.query(`INSERT INTO deposits (deposit, user_id, type, method_type) VALUES (?, ?, ?, ?)`,[
-                (-1)*dns_data?.setting_obj[`${type}`]??0,
-                user?.id,
-                1,
-                2
-            ]);
+            try {
+                await db.beginTransaction();
+                let save_msg_log = await pool.query('INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
+                    500,
+                    MSG_TYPE_LIST.indexOf(type),
+                    `${JSON.stringify(content)}`,
+                    from,
+                    to,
+                    messagekey,
+                    '전송중',
+                    user_id
+                ])
+                console.log(save_msg_log)
+                let subtract_deposit = await pool.query(`INSERT INTO deposits (msg_log_id, deposit, user_id, type, method_type) VALUES (?, ?, ?, ?, ?)`, [
+                    save_msg_log?.result?.insertId,
+                    (-1) * dns_data?.setting_obj[`${type}`] ?? 0,
+                    user?.id,
+                    1,
+                    2,
+                ]);
+                await db.commit();
+            } catch (err) {
+                await db.rollback();
+            }
             return response?.data;
         } catch (err) {
             console.log(err?.response?.data)

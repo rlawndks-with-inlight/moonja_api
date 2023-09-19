@@ -248,3 +248,13 @@ export const getReqIp = (req) => {
     requestIp = requestIp.replaceAll('::ffff:', '');
     return requestIp;
 }
+export const makeObjByList = (key, list = []) => {
+    let obj = {};
+    for (var i = 0; i < list.length; i++) {
+        if (!obj[list[i][key]]) {
+            obj[list[i][key]] = [];
+        }
+        obj[list[i][key]].push(list[i]);
+    }
+    return obj;
+}
