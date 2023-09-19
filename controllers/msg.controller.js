@@ -181,6 +181,10 @@ const msgCtrl = {
             }
             let token_data = await pool.query(`SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`);
             token_data = token_data?.result[0];
+            let dns_data = await pool.query(`SELECT setting_obj FROM brands WHERE id=${user?.brand_id} `);
+            dns_data = dns_data?.result[0];
+            dns_data['setting_obj'] = JSON.parse(dns_data?.setting_obj ?? '{}');
+
             let obj = {
                 ...req.body,
                 sender,
@@ -189,7 +193,10 @@ const msgCtrl = {
                 title,
                 token_data,
                 user_id: user?.id,
+                dns_data,
+                user,
             }
+
             let files = req.files;
             if (getByteB(msg) > 2000) {
                 return returnResponse(req, res, -2503)

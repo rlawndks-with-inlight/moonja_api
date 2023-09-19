@@ -120,12 +120,18 @@ const alimtalkCtrl = {
             }
             let token_data = await pool.query(`SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`);
             token_data = token_data?.result[0];
+            let dns_data = await pool.query(`SELECT setting_obj FROM brands WHERE id=${user?.brand_id} `);
+            dns_data = dns_data?.result[0];
+            dns_data['setting_obj'] = JSON.parse(dns_data?.setting_obj ?? '{}');
+
             let obj = {
                 sender,
                 token_data,
                 senderkey,
                 tpl_code,
                 user_id: user?.id,
+                dns_data,
+                user,
             }
             // receiver_1, title_1, msg_1, button_1 (1~500)
 

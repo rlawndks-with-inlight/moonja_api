@@ -59,7 +59,9 @@ export const bizppurioApi = {
             from,
             to,
             content,
-            user_id
+            user_id,
+            dns_data,
+            user,
         } = data;
         let {
             access_token,
@@ -73,6 +75,8 @@ export const bizppurioApi = {
             to,
             content,
         }
+        console.log(dns_data)
+        console.log(obj)
         try {
             const config = {
                 headers: {
@@ -95,6 +99,12 @@ export const bizppurioApi = {
                 '전송중',
                 user_id
             ])
+            let subtract_deposit = await pool.query(`INSERT INTO deposits (deposit, user_id, type, method_type) VALUES (?, ?, ?, ?)`,[
+                (-1)*dns_data?.setting_obj[`${type}`]??0,
+                user?.id,
+                1,
+                2
+            ]);
             return response?.data;
         } catch (err) {
             console.log(err?.response?.data)
