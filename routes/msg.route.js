@@ -8,6 +8,9 @@ router
     .route('/v1/list')
     .post(msgCtrl.list)
 router
+    .route('/v1/get')
+    .post(msgCtrl.get)
+router
     .route('/v1/remain')
     .post(msgCtrl.remain)
 router
