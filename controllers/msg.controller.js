@@ -1,7 +1,7 @@
 
 'use strict';
 import { pool } from "../config/db.js";
-import { bizppurioApi } from "../utils/bizppurio-util.js";
+import { MSG_TYPE_LIST, bizppurioApi } from "../utils/bizppurio-util.js";
 import { checkIsManagerUrl, returnMomentOnlyNumber } from "../utils/function.js";
 import { deleteQuery, getSelectQuery, insertQuery, selectQuerySimple, updateQuery } from "../utils/query-util.js";
 import send_func_obj from "../utils/send/index.js";
