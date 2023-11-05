@@ -65,6 +65,7 @@ const msgCtrl = {
             let data = await getSelectQuery(sql, columns, body);
             for (var i = 0; i < data?.content.length; i++) {
                 data.content[i]['msg'] = JSON.parse(data.content[i]['msg'])
+                data.content[i]['type'] = MSG_TYPE_LIST[data.content[i]?.type]
             }
             return returnResponse(req, res, 100, data);
         } catch (err) {
