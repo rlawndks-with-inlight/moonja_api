@@ -31,9 +31,9 @@ const msgCtrl = {
                 s_dt,
                 e_dt,
             }
-            if (!(page_size >= 10 && page_size <= 1000)) {
-                return returnResponse(req, res, -998)
-            }
+            // if (!(page_size >= 10 && page_size <= 1000)) {
+            //     return returnResponse(req, res, -998)
+            // }
             let is_exist_user_key = await pool.query(`SELECT * FROM users WHERE user_name=? AND api_key=? `, [user_id, api_key]);
             if (!(is_exist_user_key?.result.length > 0)) {
                 return returnResponse(req, res, -1000)
