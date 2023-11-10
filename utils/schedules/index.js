@@ -48,6 +48,7 @@ const scheduleIndex = () => {
                     token_data,
                     messagekey: msg_logs[i]?.msg_key
                 })
+                console.log(report)
                 if (report.code == 1000) {
                     let success_result = await pool.query(`UPDATE msg_logs SET code=${report.code}, res_msg=?, status=1 WHERE id=${msg_logs[i]?.id} `, [report?.description])
                 } else if (sending_list.includes(report.code)) {
@@ -72,7 +73,7 @@ const scheduleIndex = () => {
                 }
             }
         } catch (err) {
-
+            console.log(err);
         }
 
     })

@@ -69,7 +69,7 @@ export const bizppurioApi = {
         } = token_data;
         let obj = {
             account: BIZPPURIO_INFO.ID,
-            refkey: 'refkey',
+            refkey: `${new Date().getTime()}${user_id}${to}`,
             type,
             from,
             to,
