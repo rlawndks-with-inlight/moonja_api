@@ -68,11 +68,10 @@ export const bizppurioApi = {
             expired,
         } = token_data;
         console.log(`${new Date().getTime()}${user_id}${to}`)
+        let refkey = `${new Date().getTime()}${user_id}${to}`;
         let obj = {
-
-        
             account: BIZPPURIO_INFO.ID,
-            refkey: `${new Date().getTime()}${user_id}${to}`,
+            refkey: refkey,
             type,
             from,
             to,
@@ -91,7 +90,7 @@ export const bizppurioApi = {
             let { code, messagekey, description } = response.data;
             try {
                 await db.beginTransaction();
-                let save_msg_log = await pool.query('INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
+                let save_msg_log = await pool.query('INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id, ref_key) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                     500,
                     MSG_TYPE_LIST.indexOf(type),
                     `${JSON.stringify(content)}`,
@@ -99,7 +98,9 @@ export const bizppurioApi = {
                     to,
                     messagekey,
                     '전송중',
-                    user_id
+                    user_id,
+                    refkey
+
                 ])
                 console.log(save_msg_log)
                 let subtract_deposit = await pool.query(`INSERT INTO deposits (msg_log_id, deposit, user_id, type, method_type) VALUES (?, ?, ?, ?, ?)`, [
@@ -122,7 +123,7 @@ export const bizppurioApi = {
                     code,
                     description
                 } = err?.response?.data
-                let save_msg_log = await pool.query('INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                let save_msg_log = await pool.query('INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id, status, ref_key) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                     code,
                     MSG_TYPE_LIST.indexOf(type),
                     `${JSON.stringify(content)}`,
@@ -131,7 +132,8 @@ export const bizppurioApi = {
                     '전송실패',
                     description,
                     user_id,
-                    2
+                    2,
+                    refkey
                 ])
             }
             return err?.response?.data;
