@@ -35,7 +35,7 @@ const scheduleIndex = () => {
         }
         //전송된 메세지들 처리확인 후 업데이트
         try {
-            let msg_logs = await pool.query(`SELECT * FROM msg_logs WHERE (created_at >= NOW() - INTERVAL 5 MINUTE ) AND created_at <= NOW() AND status=0 ORDER BY id DESC`);
+            let msg_logs = await pool.query(`SELECT * FROM msg_logs WHERE (created_at >= NOW() - INTERVAL 5 MINUTE ) AND created_at <= NOW() ORDER BY id DESC`);
             msg_logs = msg_logs?.result;
             let sending_list = [
                 3011,
