@@ -146,9 +146,10 @@ const msgCtrl = {
         token_data = token_data?.result[0];
         let msg_log = await pool.query(
           `SELECT * FROM msg_logs WHERE msg_key=?`,
-          [MSGID]
+          [CMSGID]
         );
         msg_log = msg_log?.result[0];
+        console.log(msg_log);
         let report = await bizppurioApi.report({
           token_data,
           messagekey: msg_log?.msg_key,
