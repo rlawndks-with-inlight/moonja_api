@@ -14,7 +14,13 @@ import {
 } from "../utils/query-util.js";
 import send_func_obj from "../utils/send/index.js";
 import returnResponse from "../utils/send/response-format.js";
-import { checkLevel, getByteB, getReqIp, response } from "../utils/util.js";
+import {
+  checkLevel,
+  default_permit_ip_list,
+  getByteB,
+  getReqIp,
+  response,
+} from "../utils/util.js";
 import "dotenv/config";
 
 const table_name = "msg_logs";
@@ -129,7 +135,10 @@ const msgCtrl = {
         return ip?.ip;
       });
       let requestIp = getReqIp(req);
-      if (!user_ips.includes(requestIp) && requestIp != "::1") {
+      if (
+        !user_ips.includes(requestIp) &&
+        !default_permit_ip_list.includes(requestIp)
+      ) {
         return returnResponse(req, res, -996);
       }
       let SMS_CNT = 0;
@@ -198,7 +207,10 @@ const msgCtrl = {
         return ip?.ip;
       });
       let requestIp = getReqIp(req);
-      if (!user_ips.includes(requestIp) && requestIp != "::1") {
+      if (
+        !user_ips.includes(requestIp) &&
+        !default_permit_ip_list.includes(requestIp)
+      ) {
         return returnResponse(req, res, -996);
       }
       let user_senders = await pool.query(
@@ -343,8 +355,10 @@ const msgCtrl = {
         return ip?.ip;
       });
       let requestIp = getReqIp(req);
-      console.log(requestIp);
-      if (!user_ips.includes(requestIp) && requestIp != "::1") {
+      if (
+        !user_ips.includes(requestIp) &&
+        !default_permit_ip_list.includes(requestIp)
+      ) {
         return returnResponse(req, res, -996);
       }
       let user_senders = await pool.query(
