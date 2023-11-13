@@ -101,7 +101,7 @@ const msgCtrl = {
     //발송 노티 받는 주소
     try {
       const decode_user = checkLevel(req.cookies.token, 0);
-
+      console.log(req.body);
       return returnResponse(req, res, 100);
     } catch (err) {
       console.log(err);
