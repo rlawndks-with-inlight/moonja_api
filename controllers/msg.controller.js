@@ -1,5 +1,5 @@
 "use strict";
-import { pool } from "../config/db.js";
+import db, { pool } from "../config/db.js";
 import { MSG_TYPE_LIST, bizppurioApi } from "../utils/bizppurio-util.js";
 import {
   checkIsManagerUrl,
@@ -101,6 +101,26 @@ const msgCtrl = {
     //발송 노티 받는 주소
     try {
       const decode_user = checkLevel(req.cookies.token, 0);
+      let result_obj = {
+        SMS: {
+          success_code: 4100,
+        },
+        LMS: {
+          success_code: 6600,
+        },
+        MMS: {
+          success_code: 6600,
+        },
+        AT: {
+          success_code: 7000,
+        },
+        AI: {
+          success_code: 7000,
+        },
+        FT: {
+          success_code: 7000,
+        },
+      };
       const {
         DEVICE, //'SMS',
         CMSGID, //'231113153246114sms230073purpo8Ez',
@@ -113,10 +133,50 @@ const msgCtrl = {
         WAPINFO, //'KTF',
         REFKEY, //'16998571660597701029522667'
       } = req.body;
-
+      await db.beginTransaction();
+      if (RESULT == result_obj[DEVICE].success_code) {
+        let success_result = await pool.query(
+          `UPDATE msg_logs SET code=1000, res_msg=?, status=1 WHERE msg_key=? `,
+          ["success", CMSGID]
+        );
+      } else {
+        let token_data = await pool.query(
+          `SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`
+        );
+        token_data = token_data?.result[0];
+        let msg_log = await pool.query(
+          `SELECT * FROM msg_logs WHERE msg_key=?`,
+          [MSGID]
+        );
+        msg_log = msg_log?.result[0];
+        let report = await bizppurioApi.report({
+          token_data,
+          messagekey: msg_log?.msg_key,
+        });
+        let fail_result = await pool.query(
+          `UPDATE msg_logs SET code=${report.code}, res_msg=?, status=2 WHERE id=${msg_log?.id} `,
+          [report?.description]
+        );
+        let deposit_log = await pool.query(
+          `SELECT * FROM deposits WHERE msg_log_id=${msg_log?.id} `
+        );
+        deposit_log = deposit_log?.result[0];
+        let add_deposit = await pool.query(
+          `INSERT INTO deposits (deposit, user_id, type, method_type, deposit_id) VALUES (?, ?, ?, ?, ?)`,
+          [
+            -1 * deposit_log?.deposit,
+            deposit_log?.user_id,
+            0,
+            2,
+            deposit_log?.id,
+          ]
+        );
+      }
+      await db.commit();
       return returnResponse(req, res, 100);
     } catch (err) {
       console.log(err);
+      await db.rollback();
       return returnResponse(req, res, -5000);
     } finally {
     }
