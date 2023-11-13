@@ -101,9 +101,18 @@ const msgCtrl = {
     //발송 노티 받는 주소
     try {
       const decode_user = checkLevel(req.cookies.token, 0);
-      console.log("###########################");
-      console.log(req.body);
-      console.log("###########################");
+      const {
+        DEVICE, //'SMS',
+        CMSGID, //'231113153246114sms230073purpo8Ez',
+        MSGID, //'1113pu_ED1166095716626218343',
+        PHONE, //'01029522667',
+        MEDIA, //'SMS',
+        UNIXTIME, //'1699857168',
+        RESULT, //'4100',
+        USERDATA, // '',
+        WAPINFO, //'KTF',
+        REFKEY, //'16998571660597701029522667'
+      } = req.body;
 
       return returnResponse(req, res, 100);
     } catch (err) {
