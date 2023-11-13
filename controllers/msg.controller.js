@@ -162,16 +162,18 @@ const msgCtrl = {
           `SELECT * FROM deposits WHERE msg_log_id=${msg_log?.id} `
         );
         deposit_log = deposit_log?.result[0];
-        let add_deposit = await pool.query(
-          `INSERT INTO deposits (deposit, user_id, type, method_type, deposit_id) VALUES (?, ?, ?, ?, ?)`,
-          [
-            -1 * deposit_log?.deposit,
-            deposit_log?.user_id,
-            0,
-            2,
-            deposit_log?.id,
-          ]
-        );
+        if (deposit_log?.deposit < 0) {
+          let add_deposit = await pool.query(
+            `INSERT INTO deposits (deposit, user_id, type, method_type, deposit_id) VALUES (?, ?, ?, ?, ?)`,
+            [
+              -1 * deposit_log?.deposit,
+              deposit_log?.user_id,
+              0,
+              2,
+              deposit_log?.id,
+            ]
+          );
+        }
       }
       await db.commit();
       return returnResponse(req, res, 100);
