@@ -8,7 +8,8 @@ router.route("/v1/list").post(msgCtrl.list);
 router.route("/v1/get").post(msgCtrl.get);
 router.route("/v1/remain").post(msgCtrl.remain);
 router.route("/v1/send").post(msgCtrl.send);
-router.route("/v1/report").post(msgCtrl.report);
 router.route("/v1/send_mass").post(msgCtrl.send_mass); //각기 다른내용으로 대량
+
+router.route("/v1/report").post(msgCtrl.report);
 
 export default router;
