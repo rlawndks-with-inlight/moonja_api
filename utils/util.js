@@ -166,9 +166,9 @@ export const settingFiles = (obj = {}) => {
           (process.env.NODE_ENV == "development"
             ? process.env.BACK_URL_TEST
             : process.env.BACK_URL) +
-            "/" +
-            file.destination +
-            file.filename
+          "/" +
+          file.destination +
+          file.filename
         );
       }
     } else {
@@ -190,6 +190,7 @@ export const default_permit_ip_list = [
   "115.71.53.79",
   "115.71.53.94",
   "115.71.53.95",
+  "183.107.112.147",
 ];
 export const imageFieldList = [
   "message_file",
