@@ -133,6 +133,7 @@ const msgCtrl = {
         WAPINFO, //'KTF',
         REFKEY, //'16998571660597701029522667'
       } = req.body;
+      console.log(req.body)
       await db.beginTransaction();
       if (RESULT == result_obj[DEVICE].success_code) {
         let success_result = await pool.query(
