@@ -177,7 +177,11 @@ const msgCtrl = {
         }
       }
       await db.commit();
-      return returnResponse(req, res, 100);
+      return res.status(200).send({
+        result: 200,
+        message: 'success',
+        data: {},
+      })
     } catch (err) {
       console.log(err);
       await db.rollback();
