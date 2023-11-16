@@ -5,6 +5,7 @@ import {
   checkIsManagerUrl,
   returnMomentOnlyNumber,
 } from "../utils/function.js";
+import { notiResultFormat } from "../utils/noti-result-format.js";
 import {
   deleteQuery,
   getSelectQuery,
@@ -154,9 +155,19 @@ const msgCtrl = {
           token_data,
           messagekey: msg_log?.msg_key,
         });
+        let noti_result_format = notiResultFormat;
+        let report_description = 'success';
+        for (var i = 0; i < noti_result_format.length; i++) {
+          let noti_result_format_split_list = noti_result_format[i].split(' ');
+          let result_code = noti_result_format_split_list[0];
+          if (result_code == RESULT) {
+            noti_result_format_split_list.shift();
+            report_description = noti_result_format_split_list.join(' ');
+          }
+        }
         let fail_result = await pool.query(
-          `UPDATE msg_logs SET code=${report.code}, res_msg=?, status=2 WHERE id=${msg_log?.id} `,
-          [report?.description]
+          `UPDATE msg_logs SET code=${RESULT}, res_msg=?, status=2 WHERE id=${msg_log?.id} `,
+          [report_description]
         );
         let deposit_log = await pool.query(
           `SELECT * FROM deposits WHERE msg_log_id=${msg_log?.id} `
