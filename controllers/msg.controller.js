@@ -174,6 +174,7 @@ const msgCtrl = {
             ]
           );
         }
+        console.log(123)
       }
       await db.commit();
       return returnResponse(req, res, 100);
