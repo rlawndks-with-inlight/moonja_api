@@ -202,6 +202,7 @@ const msgCtrl = {
         return returnResponse(req, res, -1000);
       }
       let user = is_exist_user_key?.result[0];
+      user["setting_obj"] = JSON.parse(user?.setting_obj ?? "{}");
       let user_ips = await pool.query(
         `SELECT * FROM permit_ips WHERE user_id=?`,
         [user?.id]
@@ -226,9 +227,9 @@ const msgCtrl = {
       dns_data = dns_data?.result[0];
 
       dns_data["setting_obj"] = JSON.parse(dns_data?.setting_obj ?? "{}");
-      let sms_price = dns_data?.setting_obj?.sms ?? 1;
-      let lms_price = dns_data?.setting_obj?.lms ?? 1;
-      let mms_price = dns_data?.setting_obj?.mms ?? 1;
+      let sms_price = user?.setting_obj?.sms || dns_data?.setting_obj?.sms || 1;
+      let lms_price = user?.setting_obj?.lms || dns_data?.setting_obj?.lms || 1;
+      let mms_price = user?.setting_obj?.mms || dns_data?.setting_obj?.mms || 1;
       SMS_CNT = parseInt(user?.total_deposit / sms_price);
       LMS_CNT = parseInt(user?.total_deposit / lms_price);
       MMS_CNT = parseInt(user?.total_deposit / mms_price);
@@ -283,8 +284,6 @@ const msgCtrl = {
         return ip?.ip;
       });
       let requestIp = getReqIp(req);
-      console.log(requestIp)
-
       if (
         !user_ips.includes(requestIp) &&
         !default_permit_ip_list.includes(requestIp)
