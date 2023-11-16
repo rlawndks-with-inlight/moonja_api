@@ -62,7 +62,6 @@ export const bizppurioApi = {
   message: async (data) => {
     let { token_data, type, from, to, content, user_id, dns_data, user } = data;
     let { access_token, expired } = token_data;
-    console.log(`${new Date().getTime()}${user_id}${to}`);
     let refkey = `${new Date().getTime()}${user_id}${to}`;
     let obj = {
       account: BIZPPURIO_INFO.ID,
@@ -84,7 +83,6 @@ export const bizppurioApi = {
         obj,
         config
       );
-      console.log(response?.data);
 
       let { code, messagekey, description } = response.data;
       try {
@@ -231,7 +229,6 @@ export const bizppurioApi = {
           obj,
           config
         );
-        console.log(response);
       } catch (err) {
         console.log(err?.response?.data);
 
