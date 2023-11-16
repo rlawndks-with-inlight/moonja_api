@@ -344,7 +344,6 @@ const msgCtrl = {
           if (req_files[i]?.size > 300 * 1024) {
             return returnResponse(req, res, -4001);
           }
-          console.log(req_files[i]);
           let file_result = await bizppurioApi.file({
             file: req_files[i],
             token_data,
@@ -380,7 +379,7 @@ const msgCtrl = {
       }
       if (
         user?.total_deposit <
-        dns_data?.setting_obj[`${obj.type}`] * receiver_list.length
+        user?.setting_obj[`${obj.type}`] * receiver_list.length
       ) {
         return returnResponse(req, res, -200);
       }
