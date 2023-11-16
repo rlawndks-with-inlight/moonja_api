@@ -133,7 +133,6 @@ const msgCtrl = {
         WAPINFO, //'KTF',
         REFKEY, //'16998571660597701029522667'
       } = req.body;
-      console.log(req.body)
       await db.beginTransaction();
       if (RESULT == result_obj[DEVICE].success_code) {
         let success_result = await pool.query(
@@ -150,7 +149,6 @@ const msgCtrl = {
           [CMSGID]
         );
         msg_log = msg_log?.result[0];
-        console.log(msg_log)
         let report = await bizppurioApi.report({
           token_data,
           messagekey: msg_log?.msg_key,
