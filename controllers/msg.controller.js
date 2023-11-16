@@ -151,10 +151,6 @@ const msgCtrl = {
           [CMSGID]
         );
         msg_log = msg_log?.result[0];
-        let report = await bizppurioApi.report({
-          token_data,
-          messagekey: msg_log?.msg_key,
-        });
         let noti_result_format = notiResultFormat;
         let report_description = 'success';
         for (var i = 0; i < noti_result_format.length; i++) {
