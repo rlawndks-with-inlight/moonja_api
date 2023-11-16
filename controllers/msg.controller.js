@@ -166,7 +166,7 @@ const msgCtrl = {
           let add_deposit = await pool.query(
             `INSERT INTO deposits (msg_log_id, deposit, user_id, type, method_type, deposit_id) VALUES (?, ?, ?, ?, ?, ?)`,
             [
-              msg_log?.msg_log_id,
+              msg_log?.id,
               -1 * deposit_log?.deposit,
               deposit_log?.user_id,
               0,
