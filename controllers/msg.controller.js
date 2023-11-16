@@ -134,6 +134,7 @@ const msgCtrl = {
         REFKEY, //'16998571660597701029522667'
       } = req.body;
       await db.beginTransaction();
+      console.log(req.body)
       if (RESULT == result_obj[DEVICE].success_code) {
         let success_result = await pool.query(
           `UPDATE msg_logs SET code=1000, res_msg=?, status=1 WHERE msg_key=? `,
@@ -149,7 +150,6 @@ const msgCtrl = {
           [CMSGID]
         );
         msg_log = msg_log?.result[0];
-        console.log(msg_log);
         let report = await bizppurioApi.report({
           token_data,
           messagekey: msg_log?.msg_key,
@@ -174,7 +174,6 @@ const msgCtrl = {
             ]
           );
         }
-        console.log(123)
       }
       await db.commit();
       return returnResponse(req, res, 100);
