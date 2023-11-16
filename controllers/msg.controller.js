@@ -178,7 +178,7 @@ const msgCtrl = {
       }
       await db.commit();
       return res.status(200).send({
-        result: 200,
+        code: 1000,
         message: 'success',
         data: {},
       })
