@@ -153,7 +153,7 @@ const msgCtrl = {
         );
         msg_log = msg_log?.result[0];
         let noti_result_format = notiResultFormat;
-        let report_description = '알수 없는 에러';
+        let report_description = 'unknown error';
         for (var i = 0; i < noti_result_format.length; i++) {
           let noti_result_format_split_list = noti_result_format[i].split(' ');
           let result_code = noti_result_format_split_list[0];
