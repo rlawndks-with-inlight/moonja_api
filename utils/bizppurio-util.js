@@ -83,7 +83,7 @@ export const bizppurioApi = {
         obj,
         config
       );
-
+      console.log(response)
       let { code, messagekey, description } = response.data;
       try {
         await db.beginTransaction();

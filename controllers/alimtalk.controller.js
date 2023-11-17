@@ -33,7 +33,7 @@ const alimtalkCtrl = {
     try {
       const decode_user = checkLevel(req.cookies.token, 0);
       let { baseUrl } = req;
-      const {} = req.query;
+      const { } = req.query;
 
       return returnResponse(req, res, 100);
     } catch (err) {
@@ -103,9 +103,8 @@ const alimtalkCtrl = {
         user_id,
         token, // 토큰이 필요한 요청일시 token
         senderkey = "senderkey",
-        tpl_code = "templatecode",
+        tpl_code,
         sender, //보내는사람
-        msg_type = "text",
       } = req.body;
       if (
         !api_key ||
@@ -142,7 +141,6 @@ const alimtalkCtrl = {
       );
       dns_data = dns_data?.result[0];
       dns_data["setting_obj"] = JSON.parse(dns_data?.setting_obj ?? "{}");
-
       let obj = {
         sender,
         token_data,
@@ -153,37 +151,8 @@ const alimtalkCtrl = {
         user,
       };
       // receiver_1, title_1, msg_1, button_1 (1~500)
-
       let files = req.files;
-      if (files?.message_file) {
-        if (msg_type == "text") {
-          return returnResponse(req, res, -2500);
-        }
-        if (files?.message_file.length > 1) {
-          return returnResponse(req, res, -2501);
-        }
-        if (files?.message_file?.size > 300 * 1024) {
-          return returnResponse(req, res, -2502);
-        }
-        let send_file = "";
-        let file_result = await bizppurioApi.file({
-          file: files?.message_file[0],
-          token_data,
-        });
-        if (file_result?.code == 1000) {
-          send_file = file_result?.filekey;
-        } else {
-          return returnResponse(req, res, -4000);
-        }
-        obj["type"] = "ai"; //
-        for (var i = 1; i <= 500; i++) {
-          if (body[`receiver_${i}`] && body[`title_${i}`]) {
-            body[`msg_${i}`] = send_file;
-          }
-        }
-      } else {
-        obj["type"] = "at"; //
-      }
+      obj["type"] = 'ai';
       let receiver = [];
       for (var i = 1; i <= 500; i++) {
         if (body[`receiver_${i}`] && body[`title_${i}`] && body[`msg_${i}`]) {
@@ -216,8 +185,8 @@ const alimtalkCtrl = {
             title: body[`title_${i}`],
             ...(body[`button_${i}`]
               ? {
-                  button: button,
-                }
+                button: button,
+              }
               : {}),
           });
         }
