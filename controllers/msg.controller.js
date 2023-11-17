@@ -136,7 +136,7 @@ const msgCtrl = {
       } = req.body;
       console.log(req.body)
       await db.beginTransaction();
-      if (RESULT == result_obj[DEVICE].success_code) {
+      if (RESULT == result_obj[DEVICE]?.success_code) {
         let success_result = await pool.query(
           `UPDATE msg_logs SET code=1000, res_msg=?, status=1 WHERE msg_key=? `,
           ["success", CMSGID]
