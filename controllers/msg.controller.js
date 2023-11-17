@@ -142,6 +142,7 @@ const msgCtrl = {
           ["success", CMSGID]
         );
       } else {
+
         let token_data = await pool.query(
           `SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`
         );
@@ -152,7 +153,7 @@ const msgCtrl = {
         );
         msg_log = msg_log?.result[0];
         let noti_result_format = notiResultFormat;
-        let report_description = 'success';
+        let report_description = 'fail';
         for (var i = 0; i < noti_result_format.length; i++) {
           let noti_result_format_split_list = noti_result_format[i].split(' ');
           let result_code = noti_result_format_split_list[0];
