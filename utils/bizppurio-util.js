@@ -83,7 +83,6 @@ export const bizppurioApi = {
         obj,
         config
       );
-      console.log(response)
       let { code, messagekey, description } = response.data;
       try {
         await db.beginTransaction();
@@ -120,6 +119,7 @@ export const bizppurioApi = {
       }
       return response?.data;
     } catch (err) {
+      console.log(err)
       console.log(err?.response?.data);
       logger.error(JSON.stringify(err?.response?.data || err));
       if (err?.response?.data) {
