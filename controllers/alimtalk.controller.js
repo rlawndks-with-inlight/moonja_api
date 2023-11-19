@@ -180,10 +180,26 @@ const alimtalkCtrl = {
               button[j] = {
                 name: button[j]?.name,
                 type: button[j]?.linkType,
-                url_pc: button[j]?.linkPc ?? "",
-                url_mobile: button[j]?.linkMo ?? "",
-                scheme_ios: button[j]?.linkIos ?? "",
-                scheme_android: button[j]?.linkAnd ?? "",
+                ...(button[j]?.linkPc
+                  ? {
+                    url_pc: button[j]?.linkPc,
+                  }
+                  : {}),
+                ...(button[j]?.linkMo
+                  ? {
+                    url_mobile: button[j]?.linkMo,
+                  }
+                  : {}),
+                ...(button[j]?.linkIos
+                  ? {
+                    scheme_ios: button[j]?.linkIos,
+                  }
+                  : {}),
+                ...(button[j]?.linkAnd
+                  ? {
+                    scheme_android: button[j]?.linkAnd,
+                  }
+                  : {}),
               };
             }
           }
