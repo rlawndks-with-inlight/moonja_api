@@ -163,7 +163,7 @@ const alimtalkCtrl = {
 
       let receiver = [];
       for (var i = 1; i <= 500; i++) {
-        if (body[`receiver_${i}`] && body[`subject_${i}`] && body[`msg_${i}`]) {
+        if (body[`receiver_${i}`] && body[`msg_${i}`]) {
           let button = body[`button_${i}`]?.button;
           if (button) {
             for (var j = 0; j < button.length; j++) {
