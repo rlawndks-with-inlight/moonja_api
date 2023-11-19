@@ -1,7 +1,7 @@
 "use strict";
 import _ from "lodash";
 import { pool } from "../config/db.js";
-import { bizppurioApi } from "../utils/bizppurio-util.js";
+import { MSG_TYPE_LIST, bizppurioApi } from "../utils/bizppurio-util.js";
 import {
   checkIsManagerUrl,
   returnMoment,
@@ -159,8 +159,7 @@ const alimtalkCtrl = {
         user,
       };
       // receiver_1, subject_1, msg_1, button_1 (1~500)
-      let files = req.files;
-      obj["type"] = 'ai';
+      obj["type"] = MSG_TYPE_LIST[template?.msg_type];
 
       let receiver = [];
       for (var i = 1; i <= 500; i++) {
