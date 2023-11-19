@@ -61,6 +61,9 @@ const returnResponse = (req, res, num, data = {}, msg) => {
         case -1002:
             return_obj = returnFormat(num, '토큰이 만료되었습니다.');
             break;
+        case -1003:
+            return_obj = returnFormat(num, '템플릿코드가 잘못되었습니다.');
+            break;
         case -2000:
             return_obj = returnFormat(num, '');
             break;

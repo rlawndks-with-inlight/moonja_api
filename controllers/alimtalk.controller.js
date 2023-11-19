@@ -57,6 +57,8 @@ const alimtalkCtrl = {
       if (!(is_exist_user_key?.result.length > 0)) {
         return returnResponse(req, res, -1000);
       }
+      console.log(num)
+      console.log(num_unit)
       let token_data = await createHashedPassword(`${api_key}${user_id}`);
       let { hashedPassword, salt } = token_data;
       let expired_date = dateAdd(returnMoment(), parseInt(num), num_unit);
@@ -116,6 +118,7 @@ const alimtalkCtrl = {
       ) {
         return returnResponse(req, res, -999);
       }
+
       let body = { ...req.body };
       let is_exist_user_key = await pool.query(
         `SELECT * FROM users WHERE user_name=? AND api_key=? `,
@@ -131,6 +134,11 @@ const alimtalkCtrl = {
       }
       if (new Date().getTime() > user?.kakao_token_expired) {
         return returnResponse(req, res, -1002);
+      }
+      let template = await pool.query(`SELECT * FROM templetes WHERE tpl_code=? `, [tpl_code]);
+      template = template?.result[0];
+      if (!template) {
+        return returnResponse(req, res, -1003);
       }
       let token_data = await pool.query(
         `SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`
@@ -150,12 +158,13 @@ const alimtalkCtrl = {
         dns_data,
         user,
       };
-      // receiver_1, title_1, msg_1, button_1 (1~500)
+      // receiver_1, subject_1, msg_1, button_1 (1~500)
       let files = req.files;
       obj["type"] = 'ai';
+
       let receiver = [];
       for (var i = 1; i <= 500; i++) {
-        if (body[`receiver_${i}`] && body[`title_${i}`] && body[`msg_${i}`]) {
+        if (body[`receiver_${i}`] && body[`subject_${i}`] && body[`msg_${i}`]) {
           let button = body[`button_${i}`]?.button;
           if (button) {
             for (var j = 0; j < button.length; j++) {
@@ -171,7 +180,7 @@ const alimtalkCtrl = {
               }
               button[j] = {
                 name: button[j]?.name,
-                type: button[j]?.linkType, //AC, DS, WL, AL, BK, MD
+                type: button[j]?.linkType,
                 url_pc: button[j]?.linkPc ?? "",
                 url_mobile: button[j]?.linkMo ?? "",
                 scheme_ios: button[j]?.linkIos ?? "",
@@ -182,7 +191,7 @@ const alimtalkCtrl = {
           receiver.push({
             receiver: body[`receiver_${i}`],
             msg: body[`msg_${i}`],
-            title: body[`title_${i}`],
+            title: body[`subject_${i}`],
             ...(body[`button_${i}`]
               ? {
                 button: button,

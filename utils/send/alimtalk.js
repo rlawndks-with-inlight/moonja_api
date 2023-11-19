@@ -28,7 +28,7 @@ const sendAlarmKakao = {
                             senderkey,
                             message: msg,
                             ...(title ? {
-                                subject: title
+                                title: title
                             } : {}),
                             ...(file ? {
                                 file: file,
