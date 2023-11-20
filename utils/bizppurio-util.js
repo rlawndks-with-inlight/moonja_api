@@ -78,7 +78,6 @@ export const bizppurioApi = {
           "Content-type": "application/json; charset=utf-8",
         },
       };
-      console.log(obj)
       let response = await axios.post(
         `${BIZPPURIO_INFO.API_URL}${BIZPPURIO_INFO.API_URI.MESSAGE}`,
         obj,

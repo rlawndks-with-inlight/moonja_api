@@ -359,6 +359,7 @@ const msgCtrl = {
             file: req_files[i],
             token_data,
           });
+          console.log(file_result)
           if (file_result?.code == 1000) {
             send_file.push({
               type: "IMG",
