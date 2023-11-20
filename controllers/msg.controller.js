@@ -134,7 +134,6 @@ const msgCtrl = {
         WAPINFO, //'KTF',
         REFKEY, //'16998571660597701029522667'
       } = req.body;
-      console.log(req.body)
       await db.beginTransaction();
       if (RESULT == result_obj[DEVICE]?.success_code) {
         let success_result = await pool.query(
@@ -359,7 +358,6 @@ const msgCtrl = {
             file: req_files[i],
             token_data,
           });
-          console.log(file_result)
           if (file_result?.code == 1000) {
             send_file.push({
               type: "IMG",

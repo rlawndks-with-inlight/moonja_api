@@ -219,7 +219,6 @@ export const bizppurioApi = {
             "Content-type": "application/json",
           },
         };
-        console.log(data);
         let obj = {
           account: BIZPPURIO_INFO.ID,
           messagekey,

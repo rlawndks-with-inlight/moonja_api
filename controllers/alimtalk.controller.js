@@ -57,8 +57,6 @@ const alimtalkCtrl = {
       if (!(is_exist_user_key?.result.length > 0)) {
         return returnResponse(req, res, -1000);
       }
-      console.log(num)
-      console.log(num_unit)
       let token_data = await createHashedPassword(`${api_key}${user_id}`);
       let { hashedPassword, salt } = token_data;
       let expired_date = dateAdd(returnMoment(), parseInt(num), num_unit);
