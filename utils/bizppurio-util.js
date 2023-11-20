@@ -6,6 +6,8 @@ import { returnMomentOnlyNumber } from "./function.js";
 import logger from "./winston/index.js";
 import fs from "fs";
 import FormData from "form-data";
+import sharp from "sharp";
+import sizeOf from 'image-size';
 
 export const BIZPPURIO_INFO = {
   API_URL:
@@ -148,7 +150,32 @@ export const bizppurioApi = {
       let { token_data, file } = data;
       let { access_token, expired } = token_data;
       let form = new FormData();
-      form.append("file", fs.createReadStream(file.path), {
+      let resize_obj = {};
+      let image_size = sizeOf(`${file.destination}${file.filename}`);
+      if (image_size.width >= image_size.height) {
+        resize_obj = {
+          width: 499,
+        }
+      } else {
+        resize_obj = {
+          height: 499,
+        }
+      }
+      await sharp(file.path)	// 리사이징할 파일의 경로
+        .resize(resize_obj)	// 원본 비율 유지하면서 width 크기만 설정
+        .withMetadata()
+        .toFile(`${file.destination}2-${file.filename}`, (err, info) => {
+          if (err) throw err
+          console.log(`info : ${JSON.stringify(info)}`)
+          fs.unlink(`${file.destination}${file.filename}`, (err) => {
+            if (err) {
+              console.log(err)
+            }
+
+          })
+        })
+      let file_content = fs.createReadStream(file.path.replaceAll(file.filename, `2-${file.filename}`));
+      form.append("file", file_content, {
         filename: file.path,
         contentType: "image/jpeg", // 파일 확장자 및 타입 설정
       });
