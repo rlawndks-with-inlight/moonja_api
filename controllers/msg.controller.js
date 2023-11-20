@@ -22,6 +22,9 @@ import {
   getReqIp,
   response,
 } from "../utils/util.js";
+import sharp from "sharp";
+import sizeOf from 'image-size';
+import fs from 'fs';
 import "dotenv/config";
 
 const table_name = "msg_logs";
@@ -354,6 +357,35 @@ const msgCtrl = {
           if (req_files[i]?.size > 300 * 1024) {
             return returnResponse(req, res, -4001);
           }
+          let image_size = sizeOf(`${req_files[i].path}`);
+          if (image_size.width > 1000 || image_size.height > 1000) {
+            return returnResponse(req, res, -4002);
+          }
+          // let file = req_files[i];
+          // let resize_obj = {};
+          // let image_size = sizeOf(`${file.path}`);
+          // console.log(image_size)
+          // if (!(image_size.height < 500 && image_size.width < 500)) {
+          //   if (image_size.width >= image_size.height) {
+          //     resize_obj = {
+          //       width: 499,
+          //     }
+          //   } else {
+          //     resize_obj = {
+          //       height: 499,
+          //     }
+          //   }
+          //   await sharp(file.path)  // 압축할 이미지 경로
+          //     .resize(resize_obj) // 비율을 유지하며 가로 크기 줄이기
+          //     .withMetadata()	// 이미지의 exif데이터 유지
+          //     .toBuffer(async (err, buffer) => {
+          //       if (err) throw err;
+          //       // 압축된 파일 새로 저장(덮어씌우기)
+          //       await fs.writeFile(file.path, buffer, (err) => {
+          //         if (err) throw err;
+          //       });
+          //     });
+          // }
           let file_result = await bizppurioApi.file({
             file: req_files[i],
             token_data,
