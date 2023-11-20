@@ -165,7 +165,9 @@ export const bizppurioApi = {
         .resize(resize_obj)	// 원본 비율 유지하면서 width 크기만 설정
         .withMetadata()
         .toFile(`${file.destination}2-${file.filename}`, (err, info) => {
-          if (err) throw err
+          if (err) {
+            console.log(err)
+          }
           console.log(`info : ${JSON.stringify(info)}`)
           fs.unlink(`${file.destination}${file.filename}`, (err) => {
             if (err) {
