@@ -135,7 +135,7 @@ const returnResponse = (req, res, num, data = {}, msg) => {
         case -4001:
             return_obj = returnFormat(num, '파일 크기는 최대 300kbyte 입니다.');
         case -4002:
-            return_obj = returnFormat(num, '이미지 크기는 가로세로 기준 1000px 미만 이어야 합니다.');
+            return_obj = returnFormat(num, '이미지 크기는 가로세로 기준 1000px 이하 이어야 합니다.');
             break;
         case -4500:
             return_obj = returnFormat(num, '처리중 에러');
