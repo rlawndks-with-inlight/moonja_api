@@ -150,7 +150,7 @@ export const bizppurioApi = {
       let form = new FormData();
       form.append("file", fs.createReadStream(file.path), {
         filename: file.path,
-        contentType: "image/jpg", // 파일 확장자 및 타입 설정
+        contentType: "image/jpeg", // 파일 확장자 및 타입 설정
       });
       form.append("account", BIZPPURIO_INFO.ID);
       form.append("sendtime", (new Date().getTime() / 1000).toString());
