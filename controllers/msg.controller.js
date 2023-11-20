@@ -357,7 +357,7 @@ const msgCtrl = {
           if (req_files[i]?.size > 300 * 1024) {
             return returnResponse(req, res, -4001);
           }
-          let image_size = sizeOf(`${req_files[i].path}`);
+          let image_size = await sizeOf(`${req_files[i].path}`);
           if (image_size.width > 1000 || image_size.height > 1000) {
             return returnResponse(req, res, -4002);
           }
