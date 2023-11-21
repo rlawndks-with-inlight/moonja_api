@@ -145,8 +145,8 @@ const msgCtrl = {
 
       if (RESULT == result_obj[DEVICE]?.success_code) {
         let success_result = await pool.query(
-          `UPDATE msg_logs SET code=1000, res_msg=?, status=1 WHERE msg_key=? `,
-          ["success", CMSGID]
+          `UPDATE msg_logs SET code=1000, res_msg=?, msgid=? status=1 WHERE msg_key=? `,
+          ["success", MSGID, CMSGID]
         );
       } else {
         let msg_log = await pool.query(
@@ -165,8 +165,8 @@ const msgCtrl = {
           }
         }
         let fail_result = await pool.query(
-          `UPDATE msg_logs SET code=${RESULT}, res_msg=?, status=2 WHERE id=${msg_log?.id} `,
-          [report_description]
+          `UPDATE msg_logs SET code=${RESULT}, res_msg=?, status=2, msgid=? WHERE id=${msg_log?.id} `,
+          [report_description, MSGID]
         );
         let deposit_log = await pool.query(
           `SELECT * FROM deposits WHERE msg_log_id=${msg_log?.id} `
