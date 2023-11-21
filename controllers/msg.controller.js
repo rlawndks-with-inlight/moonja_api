@@ -138,17 +138,17 @@ const msgCtrl = {
         REFKEY, //'16998571660597701029522667'
       } = req.body;
       await db.beginTransaction();
+      let token_data = await pool.query(
+        `SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`
+      );
+      token_data = token_data?.result[0];
+
       if (RESULT == result_obj[DEVICE]?.success_code) {
         let success_result = await pool.query(
           `UPDATE msg_logs SET code=1000, res_msg=?, status=1 WHERE msg_key=? `,
           ["success", CMSGID]
         );
       } else {
-
-        let token_data = await pool.query(
-          `SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`
-        );
-        token_data = token_data?.result[0];
         let msg_log = await pool.query(
           `SELECT * FROM msg_logs WHERE msg_key=?`,
           [CMSGID]
@@ -186,6 +186,10 @@ const msgCtrl = {
           );
         }
       }
+      let confirm_result = await bizppurioApi.result.confirm({
+        token_data,
+        msgid: MSGID,
+      })
       await db.commit();
       return res.status(200).send({
         code: 1000,

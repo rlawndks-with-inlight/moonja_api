@@ -150,27 +150,7 @@ export const bizppurioApi = {
       let { token_data, file } = data;
       let { access_token, expired } = token_data;
       let form = new FormData();
-      let resize_obj = {};
-      let image_size = sizeOf(`${file.destination}${file.filename}`);
-      if (!(image_size.height < 500 && image_size.width < 500)) {
-        if (image_size.width >= image_size.height) {
-          resize_obj = {
-            width: 499,
-          }
-        } else {
-          resize_obj = {
-            height: 499,
-          }
-        }
-        let buffer = await sharp(file.path)  // 압축할 이미지 경로
-          .resize(resize_obj) // 비율을 유지하며 가로 크기 줄이기
-          .withMetadata()	// 이미지의 exif데이터 유지
-          .toBuffer();
-        await fs.writeFile(file.path, buffer, (err) => {
-          if (err) throw err;
-        });
-      }
-      console.log(file.path)
+
       form.append("file", fs.createReadStream(file.path), {
         filename: file.path,
         contentType: "image/jpeg", // 파일 확장자 및 타입 설정
@@ -259,7 +239,26 @@ export const bizppurioApi = {
       }
     },
     confirm: async (data) => {
+      console.log('#####')
       try {
+        let { token_data, msgid } = data;
+        let { access_token, expired } = token_data;
+        const config = {
+          headers: {
+            Authorization: `Basic ${access_token}`,
+            "Content-type": "application/json",
+          },
+        };
+        let obj = {
+          account: BIZPPURIO_INFO.ID,
+          msgid,
+        };
+        let response = await axios.post(
+          `${BIZPPURIO_INFO.API_URL}${BIZPPURIO_INFO.API_URI.RESULT.CONFIRM}`,
+          obj,
+          config
+        );
+        console.log(response)
       } catch (err) {
         console.log(err?.response?.data);
 

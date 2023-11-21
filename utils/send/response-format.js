@@ -106,8 +106,6 @@ const returnResponse = (req, res, num, data = {}, msg) => {
         case -2503:
             return_obj = returnFormat(num, 'msg 길이는 최대 한글기준 1000자 입니다.');
             break;
-
-
         case -2600:
             return_obj = returnFormat(num, '유효한 button name 이 아닙니다.');
             break;
