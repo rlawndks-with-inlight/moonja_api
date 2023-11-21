@@ -243,6 +243,7 @@ export const bizppurioApi = {
       try {
         let { token_data, msgid } = data;
         let { access_token, expired } = token_data;
+        console.log(msgid)
         const config = {
           headers: {
             Authorization: `Basic ${access_token}`,
