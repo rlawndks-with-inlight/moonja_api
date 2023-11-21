@@ -251,7 +251,9 @@ export const bizppurioApi = {
         };
         let obj = {
           account: BIZPPURIO_INFO.ID,
-          msgid,
+          msgid: [
+            { msgid: msgid }
+          ],
         };
         let response = await axios.post(
           `${BIZPPURIO_INFO.API_URL}${BIZPPURIO_INFO.API_URI.RESULT.CONFIRM}`,
