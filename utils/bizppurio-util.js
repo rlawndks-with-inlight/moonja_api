@@ -245,7 +245,7 @@ export const bizppurioApi = {
 
         const config = {
           headers: {
-            Authorization: `Basic ${access_token}`,
+            Authorization: `Bearer ${access_token}`,
             "Content-type": "application/json",
           },
         };
