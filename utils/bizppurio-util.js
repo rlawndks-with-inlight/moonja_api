@@ -260,10 +260,8 @@ export const bizppurioApi = {
           config
         );
         console.log(response)
-        console.log('@@@@@@@@@@@')
       } catch (err) {
         console.log(err?.response?.data);
-        console.log('%%%%%%%%%%%%%%%%%')
         logger.error(JSON.stringify(err?.response?.data || err));
         return err?.response?.data;
       }
