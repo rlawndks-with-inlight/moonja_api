@@ -302,8 +302,10 @@ const msgCtrl = {
       user_ips = user_ips.map((ip) => {
         return ip?.ip;
       });
-      console.log(user_ips)
+
       let requestIp = getReqIp(req);
+      console.log(requestIp)
+      console.log(user_ips)
       if (
         !user_ips.includes(requestIp) &&
         !default_permit_ip_list.includes(requestIp)
