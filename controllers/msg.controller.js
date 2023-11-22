@@ -304,8 +304,6 @@ const msgCtrl = {
       });
 
       let requestIp = getReqIp(req);
-      console.log(requestIp)
-      console.log(user_ips)
       if (
         !user_ips.includes(requestIp) &&
         !default_permit_ip_list.includes(requestIp)
