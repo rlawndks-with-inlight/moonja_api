@@ -302,6 +302,7 @@ const msgCtrl = {
       user_ips = user_ips.map((ip) => {
         return ip?.ip;
       });
+      console.log(user_ips)
       let requestIp = getReqIp(req);
       if (
         !user_ips.includes(requestIp) &&
