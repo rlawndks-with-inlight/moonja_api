@@ -174,10 +174,11 @@ const msgCtrl = {
         deposit_log = deposit_log?.result;
         if (deposit_log?.length == 1) {
           let add_deposit = await pool.query(
-            `INSERT INTO deposits (msg_log_id, deposit, user_id, type, method_type, deposit_id) VALUES (?, ?, ?, ?, ?, ?)`,
+            `INSERT INTO deposits (msg_log_id, deposit, brand_deposit, user_id, type, method_type, deposit_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
             [
               msg_log?.id,
               -1 * deposit_log[0]?.deposit,
+              -1 * deposit_log[0]?.brand_deposit,
               deposit_log[0]?.user_id,
               0,
               2,
@@ -327,10 +328,11 @@ const msgCtrl = {
       );
       token_data = token_data?.result[0];
       let dns_data = await pool.query(
-        `SELECT setting_obj FROM brands WHERE id=${user?.brand_id} `
+        `SELECT setting_obj, bizppurio_obj FROM brands WHERE id=${user?.brand_id} `
       );
       dns_data = dns_data?.result[0];
       dns_data["setting_obj"] = JSON.parse(dns_data?.setting_obj ?? "{}");
+      dns_data["bizppurio_obj"] = JSON.parse(dns_data?.bizppurio_obj ?? "{}");
 
       let obj = {
         ...req.body,

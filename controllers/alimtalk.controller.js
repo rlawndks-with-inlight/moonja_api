@@ -143,10 +143,11 @@ const alimtalkCtrl = {
       );
       token_data = token_data?.result[0];
       let dns_data = await pool.query(
-        `SELECT setting_obj FROM brands WHERE id=${user?.brand_id} `
+        `SELECT setting_obj, bizppurio_obj FROM brands WHERE id=${user?.brand_id} `
       );
       dns_data = dns_data?.result[0];
       dns_data["setting_obj"] = JSON.parse(dns_data?.setting_obj ?? "{}");
+      dns_data["bizppurio_obj"] = JSON.parse(dns_data?.bizppurio_obj ?? "{}");
       let obj = {
         sender,
         token_data,
