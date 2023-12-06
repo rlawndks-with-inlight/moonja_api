@@ -63,8 +63,10 @@ const msgCtrl = {
         `${table_name}.msg_key`,
         `${table_name}.res_msg`,
         `${table_name}.created_at`,
+        `(SELECT SUM(sub_deposits.deposit) FROM deposits sub_deposits WHERE sub_deposits.user_id = deposits.user_id AND sub_deposits.id <= deposits.id ORDER BY sub_deposits.id DESC LIMIT 1) AS cumulative_deposit`,
       ];
       let sql = `SELECT ${process.env.SELECT_COLUMN_SECRET} FROM ${table_name} `;
+      sql += ` LEFT JOIN deposits ON deposits.msg_log_id=${table_name}.id `;
       sql += ` WHERE ${table_name}.user_id=${user?.id} AND ${table_name}.type IN (0, 1, 2) `;
       if (s_dt && e_dt) {
         sql += ` AND (created_at BETWEEN '${s_dt} 00:00:00' AND '${e_dt} 23:59:59') `;
