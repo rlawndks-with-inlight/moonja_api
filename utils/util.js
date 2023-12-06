@@ -191,6 +191,7 @@ export const default_permit_ip_list = [
   "115.71.53.94",
   "115.71.53.95",
   "183.107.112.147",
+  "121.183.143.103",
 ];
 export const imageFieldList = [
   "message_file",
