@@ -121,6 +121,7 @@ const settingSelectQueryWhere = (sql_, query, table) => {
         sql += ` AND ${table}.created_at <= '${e_dt} 23:59:59' `;
     }
     if (search) {
+        console.log(search)
         if (searchColumnList[table]?.length > 0) {
             sql += ` AND ( `
             for (var i = 0; i < searchColumnList[table].length; i++) {
