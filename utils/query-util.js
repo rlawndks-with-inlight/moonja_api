@@ -75,6 +75,7 @@ export const getSelectQuery = async (sql_, columns, query, add_sql_list = []) =>
     let table = getTableNameBySelectQuery(sql);
 
     sql = settingSelectQueryWhere(sql, query, table);
+    console.log(sql)
     for (var i = 0; i < add_sql_list.length; i++) {
         add_sql_list[i].sql = settingSelectQueryWhere(add_sql_list[i].sql, query, table);
     }
@@ -125,7 +126,6 @@ const settingSelectQueryWhere = (sql_, query, table) => {
     }
 
     if (search) {
-        console.log(search)
         if (searchColumnList[table]?.length > 0) {
             sql += ` AND ( `
             for (var i = 0; i < searchColumnList[table].length; i++) {
