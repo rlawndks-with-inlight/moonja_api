@@ -128,7 +128,7 @@ const settingSelectQueryWhere = (sql_, query, table) => {
                 if (i != 0) {
                     sql += ` OR `;
                 }
-                sql += ` ${searchColumnList[table][i]} LIKE '%${search}%' `
+                sql += ` ${searchColumnList[table][i]} LIKE "%${search}%" `
             }
             sql += ` ) `;
         }
