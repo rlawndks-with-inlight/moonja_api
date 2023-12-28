@@ -34,7 +34,7 @@ const msgCtrl = {
     //전송결과
     try {
       const decode_user = checkLevel(req.cookies.token, 0);
-      let { api_key, user_id, page = 1, page_size = 30, s_dt, e_dt } = req.body;
+      let { api_key, user_id, page = 1, page_size = 30, s_dt, e_dt, search } = req.body;
       let body = {
         api_key,
         user_id,
@@ -42,6 +42,7 @@ const msgCtrl = {
         page_size,
         s_dt,
         e_dt,
+        search
       };
       // if (!(page_size >= 10 && page_size <= 1000)) {
       //     return returnResponse(req, res, -998)
@@ -68,6 +69,7 @@ const msgCtrl = {
       let sql = `SELECT ${process.env.SELECT_COLUMN_SECRET} FROM ${table_name} `;
       sql += ` LEFT JOIN deposits ON deposits.msg_log_id=${table_name}.id `;
       sql += ` WHERE ${table_name}.user_id=${user?.id} AND ${table_name}.type IN (0, 1, 2) `;
+
       if (s_dt && e_dt) {
         sql += ` AND (${table_name}.created_at BETWEEN '${s_dt} 00:00:00' AND '${e_dt} 23:59:59') `;
       } else {
