@@ -70,17 +70,6 @@ const msgCtrl = {
       sql += ` LEFT JOIN deposits ON deposits.msg_log_id=${table_name}.id `;
       sql += ` WHERE ${table_name}.user_id=${user?.id} AND ${table_name}.type IN (0, 1, 2) `;
 
-      if (s_dt && e_dt) {
-        sql += ` AND (${table_name}.created_at BETWEEN '${s_dt} 00:00:00' AND '${e_dt} 23:59:59') `;
-      } else {
-        if (s_dt) {
-          sql += ` AND ${table_name}.created_at >= '${s_dt} 00:00:00' `;
-        }
-        if (e_dt) {
-          sql += ` AND ${table_name}.created_at <= '${e_dt} 23:59:59' `;
-        }
-      }
-
       let data = await getSelectQuery(sql, columns, body);
       for (var i = 0; i < data?.content.length; i++) {
         data.content[i]["msg"] = JSON.parse(data.content[i]["msg"]);

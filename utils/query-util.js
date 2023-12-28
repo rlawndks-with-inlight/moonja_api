@@ -75,7 +75,6 @@ export const getSelectQuery = async (sql_, columns, query, add_sql_list = []) =>
     let table = getTableNameBySelectQuery(sql);
 
     sql = settingSelectQueryWhere(sql, query, table);
-    console.log(sql)
     for (var i = 0; i < add_sql_list.length; i++) {
         add_sql_list[i].sql = settingSelectQueryWhere(add_sql_list[i].sql, query, table);
     }
@@ -114,12 +113,17 @@ const settingSelectQueryWhere = (sql_, query, table) => {
     let sql = sql_;
     const { s_dt, e_dt, search } = query;
     sql += ` ${sql.includes('WHERE') ? 'AND' : 'WHERE'} ${table}.is_delete=0 `;
-    if (s_dt) {
-        sql += ` AND ${table}.created_at >= '${s_dt} 00:00:00' `;
+    if (s_dt && e_dt) {
+        sql += ` AND (${table}.created_at BETWEEN '${s_dt} 00:00:00' AND '${e_dt} 23:59:59') `;
+    } else {
+        if (s_dt) {
+            sql += ` AND ${table}.created_at >= '${s_dt} 00:00:00' `;
+        }
+        if (e_dt) {
+            sql += ` AND ${table}.created_at <= '${e_dt} 23:59:59' `;
+        }
     }
-    if (e_dt) {
-        sql += ` AND ${table}.created_at <= '${e_dt} 23:59:59' `;
-    }
+
     if (search) {
         console.log(search)
         if (searchColumnList[table]?.length > 0) {
