@@ -1,6 +1,7 @@
 import { pool } from '../config/db.js';
 import 'dotenv/config';
 import when from 'when';
+import { searchColumnList } from './search-util.js';
 
 export const insertQuery = async (table, obj) => {
     let keys = Object.keys(obj);
@@ -119,7 +120,16 @@ const settingSelectQueryWhere = (sql_, query, table) => {
         sql += ` AND ${table}.created_at <= '${e_dt} 23:59:59' `;
     }
     if (search) {
-
+        if (searchColumnList[table]?.length > 0) {
+            sql += ` AND ( `
+            for (var i = 0; i < searchColumnList[table].length; i++) {
+                if (i != 0) {
+                    sql += ` OR `;
+                }
+                sql += ` ${searchColumnList[table][i]} LIKE '%${search}%' `
+            }
+            sql += ` ) `;
+        }
     }
     return sql;
 }
