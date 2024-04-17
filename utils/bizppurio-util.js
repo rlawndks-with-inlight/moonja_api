@@ -87,21 +87,20 @@ export const bizppurioApi = {
       );
       let { code, messagekey, description } = response.data;
       try {
-        if ()
-          let save_msg_log = await pool.query(
-            "INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id, ref_key) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            [
-              500,
-              MSG_TYPE_LIST.indexOf(type),
-              `${JSON.stringify(content)}`,
-              from,
-              to,
-              messagekey,
-              "전송중",
-              user_id,
-              refkey,
-            ]
-          );
+        let save_msg_log = await pool.query(
+          "INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id, ref_key) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          [
+            500,
+            MSG_TYPE_LIST.indexOf(type),
+            `${JSON.stringify(content)}`,
+            from,
+            to,
+            messagekey,
+            "전송중",
+            user_id,
+            refkey,
+          ]
+        );
         if (user?.setting_obj[`${type}`] > 0) {
           let subtract_deposit = await pool.query(
             `INSERT INTO deposits (msg_log_id, deposit, brand_deposit, user_id, type, method_type) VALUES (?, ?, ?, ?, ?, ?)`,
