@@ -185,6 +185,14 @@ const msgCtrl = {
         token_data,
         msgid: MSGID
       })
+      logger.info(JSON.stringify({
+        ...req.body, res: {
+          code: 1000,
+          message: 'success',
+          data: {},
+        }
+      }));
+
       return res.status(200).send({
         code: 1000,
         message: 'success',
@@ -192,6 +200,13 @@ const msgCtrl = {
       })
     } catch (err) {
       console.log(err);
+      logger.info(JSON.stringify({
+        ...req.body, res: {
+          code: -1000,
+          message: '',
+          data: {},
+        }
+      }));
       return returnResponse(req, res, -5000);
     } finally {
     }
