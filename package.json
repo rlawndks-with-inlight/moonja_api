@@ -82,7 +82,8 @@
     "wait-queue": "^1.1.4",
     "when": "^3.7.8",
     "winston": "^3.10.0",
-    "winston-daily-rotate-file": "^4.7.1"
+    "winston-daily-rotate-file": "^4.7.1",
+    "xlsx": "^0.18.5"
   },
   "type": "module",
   "babel": {
