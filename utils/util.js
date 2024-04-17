@@ -6,6 +6,7 @@ import "dotenv/config";
 import { readSync } from "fs";
 import when from "when";
 import { returnMoment } from "./function.js";
+import xlsx from 'xlsx';
 
 const randomBytesPromise = util.promisify(crypto.randomBytes);
 const pbkdf2Promise = util.promisify(crypto.pbkdf2);
@@ -288,3 +289,16 @@ export const makeObjByList = (key, list = []) => {
   }
   return obj;
 };
+const asdsadsa = () => {
+  try {
+    const workbook = xlsx.readFile('./asd.xlsx'); // 액샐 파일 읽어오기
+    const firstSheetName = workbook.SheetNames[0]; // 첫 번째 시트 이름 가져오기
+    const firstShee = workbook.Sheets[firstSheetName]; // 시트 이름을 이용해 엑셀 파일의 첫 번째 시트 가져오기
+
+    const excel_list = xlsx.utils.sheet_to_json(firstShee).filter(el => el['서비스'] == 'M');
+    console.log(excel_list.length);
+
+  } catch (err) {
+    console.log(err);
+  }
+}
