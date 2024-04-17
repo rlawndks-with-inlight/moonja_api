@@ -49,7 +49,6 @@ if (process.env.NODE_ENV == "development") {
     console.log("**-------------------------------------**");
     console.log(`====      Server is On ${HTTP_PORT}...!!!    ====`);
     console.log("**-------------------------------------**");
-    scheduleIndex();
   });
 } else {
   const options = {

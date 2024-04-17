@@ -268,3 +268,23 @@ export const bizppurioApi = {
     },
   },
 };
+
+const asdsadsad = async () => {
+  console.log(123)
+  let list = await pool.query(`SELECT * FROM msg_logs WHERE user_id=81 AND code=500 ORDER BY id DESC `);
+  list = list?.result;
+  let token_data = await pool.query(
+    `SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`
+  );
+  token_data = token_data?.result[0];
+  console.log(list.length);
+  for (var i = 0; i < list.length; i++) {
+    let result = await bizppurioApi.result.request({
+      token_data: token_data,
+      messagekey: list[i]?.msg_key,
+    })
+    console.log(result)
+    return;
+  }
+}
+asdsadsad();
