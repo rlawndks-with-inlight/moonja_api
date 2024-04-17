@@ -26,6 +26,7 @@ import sharp from "sharp";
 import sizeOf from 'image-size';
 import fs from 'fs';
 import "dotenv/config";
+import logger from "../utils/winston/index.js";
 
 const table_name = "msg_logs";
 
@@ -130,6 +131,7 @@ const msgCtrl = {
         WAPINFO, //'KTF',
         REFKEY, //'16998571660597701029522667'
       } = req.body;
+      logger.info(JSON.stringify(req.body));
       let token_data = await pool.query(
         `SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`
       );
