@@ -130,7 +130,6 @@ const msgCtrl = {
         WAPINFO, //'KTF',
         REFKEY, //'16998571660597701029522667'
       } = req.body;
-      await db.beginTransaction();
       let token_data = await pool.query(
         `SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`
       );
@@ -184,7 +183,6 @@ const msgCtrl = {
         token_data,
         msgid: MSGID
       })
-      await db.commit();
       return res.status(200).send({
         code: 1000,
         message: 'success',
@@ -192,7 +190,6 @@ const msgCtrl = {
       })
     } catch (err) {
       console.log(err);
-      await db.rollback();
       return returnResponse(req, res, -5000);
     } finally {
     }

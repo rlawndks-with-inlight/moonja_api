@@ -87,7 +87,6 @@ export const bizppurioApi = {
       );
       let { code, messagekey, description } = response.data;
       try {
-        await db.beginTransaction();
         let save_msg_log = await pool.query(
           "INSERT INTO msg_logs (code, type, msg, sender, receiver, msg_key, res_msg, user_id, ref_key) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
           [
@@ -116,9 +115,8 @@ export const bizppurioApi = {
           );
         }
 
-        await db.commit();
       } catch (err) {
-        await db.rollback();
+
       }
       return response?.data;
     } catch (err) {

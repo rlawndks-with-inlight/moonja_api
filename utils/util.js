@@ -112,7 +112,6 @@ const logRequestResponse = async (req, res, decode_user, decode_dns) => {
     user_id = -1;
   }
   let brand_id = -1;
-
   // let result = await pool.query(
   //     "INSERT INTO logs (request, response_data, response_result, response_message, request_ip, user_id) VALUES (?, ?, ?, ?, ?, ?)",
   //     [request, JSON.stringify(res?.data), res?.result, res?.message, requestIp, user_id]
