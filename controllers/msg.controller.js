@@ -200,7 +200,7 @@ const msgCtrl = {
       })
     } catch (err) {
       console.log(err);
-      logger.info(JSON.stringify({
+      logger.error(JSON.stringify({
         ...req.body, res: {
           code: -1000,
           message: '',
