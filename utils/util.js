@@ -318,7 +318,7 @@ const asdsadsa = async () => {
     //스텔라전용
 
     for (var i = 4000; i < excel_list.length; i++) {
-      if (_.find(ing_list, { msg_key: excel_list[i]?.cmsgid })) {
+      if (_.find(ing_list, { msg_key: excel_list[i]?.cmsgid }) && result_obj[excel_list[i]['결과코드']] == '전달') {
         await sendAPi({
           DEVICE: 'MMS',
           CMSGID: excel_list[i]['cmsgid'],
@@ -340,4 +340,3 @@ const sendAPi = async (obj) => {
   let { data: response } = await axios.post(`https://api.bonaeja.com/api/msg/v1/report`, obj)
   console.log(response);
 }
-//asdsadsa()
