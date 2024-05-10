@@ -166,7 +166,7 @@ const msgCtrl = {
           `SELECT * FROM deposits WHERE msg_log_id=${msg_log?.id} `
         );
         deposit_log = deposit_log?.result;
-        if (deposit_log?.length == 1) {
+        if (deposit_log?.length == 1 && msg_log?.code == 500) {
           let add_deposit = await pool.query(
             `INSERT INTO deposits (msg_log_id, deposit, brand_deposit, user_id, type, method_type, deposit_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
             [
