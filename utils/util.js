@@ -7,6 +7,8 @@ import { readSync } from "fs";
 import when from "when";
 import { returnMoment } from "./function.js";
 import xlsx from 'xlsx';
+import axios from "axios";
+import _ from "lodash";
 
 const randomBytesPromise = util.promisify(crypto.randomBytes);
 const pbkdf2Promise = util.promisify(crypto.pbkdf2);
@@ -289,16 +291,53 @@ export const makeObjByList = (key, list = []) => {
   }
   return obj;
 };
-const asdsadsa = () => {
+const asdsadsa = async () => {
   try {
     const workbook = xlsx.readFile('./asd.xlsx'); // 액샐 파일 읽어오기
     const firstSheetName = workbook.SheetNames[0]; // 첫 번째 시트 이름 가져오기
     const firstShee = workbook.Sheets[firstSheetName]; // 시트 이름을 이용해 엑셀 파일의 첫 번째 시트 가져오기
 
-    const excel_list = xlsx.utils.sheet_to_json(firstShee).filter(el => el['서비스'] == 'M');
+    const excel_list = xlsx.utils.sheet_to_json(firstShee).filter(el => el['서비스'] == 'M' && el.callback == '0260117050');
     console.log(excel_list.length);
+    let ing_list = await pool.query(`SELECT * FROM msg_logs WHERE sender='0260117050' AND code=500 ORDER BY id DESC`);
+    ing_list = ing_list?.result;
 
+    let set_list = excel_list.map(itm => itm['결과코드']);
+    set_list = new Set(set_list);
+    console.log(set_list);
+    let result_obj = {
+      '전달': 6600,
+      'NPDB에러': 6625,
+      '타임 아웃': 6601,
+      '기타 에러': 7300,
+      '서비스 일시 정지': 6607,
+      '기타 단말기 문제': 6608,
+      '서비스 불가 단말기': 6613,
+      '핸드폰 호 불가 상태': 6614,
+    }
+    //스텔라전용
+
+    for (var i = 4000; i < excel_list.length; i++) {
+      if (_.find(ing_list, { msg_key: excel_list[i]?.cmsgid })) {
+        await sendAPi({
+          DEVICE: 'MMS',
+          CMSGID: excel_list[i]['cmsgid'],
+          MSGID: excel_list[i]['msgid'],
+          RESULT: result_obj[excel_list[i]['결과코드']],
+        });
+
+      }
+      if (i % 1000 == 0) {
+        console.log(i);
+      }
+    }
+    console.log('success')
   } catch (err) {
     console.log(err);
   }
 }
+const sendAPi = async (obj) => {
+  let { data: response } = await axios.post(`https://api.bonaeja.com/api/msg/v1/report`, obj)
+  console.log(response);
+}
+//asdsadsa()
