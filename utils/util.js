@@ -341,4 +341,3 @@ const sendAPi = async (obj) => {
   let { data: response } = await axios.post(`https://api.bonaeja.com/api/msg/v1/report`, obj)
   console.log(response);
 }
-asdsadsa()
