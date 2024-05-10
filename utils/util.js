@@ -319,6 +319,7 @@ const asdsadsa = async () => {
 
     for (var i = 4000; i < excel_list.length; i++) {
       if (_.find(ing_list, { msg_key: excel_list[i]?.cmsgid })) {
+        console.log(excel_list[i]['결과코드'])
         await sendAPi({
           DEVICE: 'MMS',
           CMSGID: excel_list[i]['cmsgid'],
