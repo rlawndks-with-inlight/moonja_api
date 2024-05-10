@@ -163,11 +163,11 @@ const msgCtrl = {
           [report_description, MSGID]
         );
         let deposit_log = await pool.query(
-          `SELECT * FROM deposits WHERE msg_log_id=${msg_log?.id} `
+          `SELECT * FROM deposits WHERE msg_log_id=${msg_log?.id} && deposit < 0`
         );
         deposit_log = deposit_log?.result;
         let fail_deposit_log = await pool.query(
-          `SELECT * FROM deposits WHERE msg_log_id=${msg_log?.id} && status=2`
+          `SELECT * FROM deposits WHERE msg_log_id=${msg_log?.id} && status=2 && deposit > 0`
         );
         fail_deposit_log = fail_deposit_log?.result[0];
         if (deposit_log?.length == 1 && !fail_deposit_log) {
