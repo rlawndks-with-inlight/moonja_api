@@ -6,6 +6,9 @@ import { makeObjByList } from "../util.js";
 
 const scheduleIndex = () => {
   schedule.scheduleJob("0 0/1 * * * *", async function () {
+    if (parseInt(process.env.INSTANCE_ID) != parseInt(process.env.instances) - 1) {
+      return;
+    }
     let return_moment = returnMoment();
     let return_moment_number = returnMomentOnlyNumber();
     let token_data = await pool.query(`SELECT * FROM bizppurio_tokens ORDER BY id DESC LIMIT 1`);
