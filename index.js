@@ -42,25 +42,12 @@ app.use((req, res, next) => {
   return next(err);
 });
 let server = undefined;
-const HTTP_PORT = 8080;
-const HTTPS_PORT = 443;
-if (process.env.NODE_ENV == "development") {
-  server = http.createServer(app).listen(HTTP_PORT, function () {
-    console.log("**-------------------------------------**");
-    console.log(`====      Server is On ${HTTP_PORT}...!!!    ====`);
-    console.log("**-------------------------------------**");
-  });
-} else {
-  const options = {
-    // letsencrypt로 받은 인증서 경로를 입력해 줍니다.
-    ca: fs.readFileSync("/etc/letsencrypt/live/api.bonaeja.com/fullchain.pem"),
-    key: fs.readFileSync("/etc/letsencrypt/live/api.bonaeja.com/privkey.pem"),
-    cert: fs.readFileSync("/etc/letsencrypt/live/api.bonaeja.com/cert.pem"),
-  };
-  server = https.createServer(options, app).listen(HTTPS_PORT, function () {
-    console.log("**-------------------------------------**");
-    console.log(`====      Server is On ${HTTPS_PORT}...!!!    ====`);
-    console.log("**-------------------------------------**");
-    scheduleIndex();
-  });
-}
+const HTTP_PORT = 84;
+
+server = http.createServer(app).listen(HTTP_PORT, function () {
+  console.log("**-------------------------------------**");
+  console.log(`====      Server is On ${HTTP_PORT}...!!!    ====`);
+  console.log("**-------------------------------------**");
+  scheduleIndex();
+});
+
